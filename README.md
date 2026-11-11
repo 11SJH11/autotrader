@@ -2,7 +2,7 @@
 
 A safe starting point for a **demo-only** multi-strategy trading platform.
 
-**Current status:** planning + read-only laptop inventory. No broker connection, trade execution, API credentials, or order placement is implemented. Do not treat any status indicator as evidence that a trading system is running.
+**Current status:** offline simulated engine and read-only legacy inventory implemented. No real broker connection, credentials or order placement is implemented. Simulated fills do not establish broker execution.
 
 ## Quick start (Fedora)
 
@@ -35,3 +35,32 @@ Next, give Codex `CODEX_PHASE_0_PROMPT.md`, plus `docs/BLUEPRINT.md` and `docs/S
 5. Hurricane adapter, then T02, then Synergy.
 
 Read `docs/BLUEPRINT.md` for detailed acceptance checks.
+
+## Implemented offline foundation
+
+The initial simulator now lives in `control_plane/`, with durable SQLite order
+claims, risk reservations and reconciliation. It uses synthetic SIM-XAU units;
+there is no external broker connection or real execution path.
+
+Run tests with Python 3.11+ and pytest:
+
+```bash
+python -m pytest -q
+```
+
+See `docs/handover.md` for tested commands, results and remaining safety gates.
+
+## Phase 1 offline lifecycle extension
+
+Use the project-local Python 3.11 environment and pinned test dependencies:
+
+```bash
+uv venv --python /usr/bin/python3.11 .venv
+uv pip install --python .venv/bin/python -r requirements-dev.txt
+.venv/bin/python -m pytest -q
+```
+
+See [Phase 1 handover](docs/phase1_handover.md) for pending orders, position
+management, campaign invalidation, ownership safeguards, diagnostics and test
+results. The [cTrader read-only plan](docs/ctrader_read_only_plan.md) is a
+proposal only; this repository still has no real broker execution adapter.

@@ -21,3 +21,6 @@ dist/
 build/
 # local machine-specific diagnostics
 docs/local_inventory.txt
+
+.pytest-tmp/
+*.owner

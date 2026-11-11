@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.db
+*.sqlite*
+*.log
+secrets/
+sessions/
+*.session
+*.session-journal
+credentials*
+*.pem
+*.key
+.idea/
+node_modules/
+dist/
+build/
+# local machine-specific diagnostics
+docs/local_inventory.txt

@@ -1,0 +1,2 @@
+# JSON WebSocket transport; supports Python >=3.8, including project Python 3.11.
+websocket-client==1.8.0

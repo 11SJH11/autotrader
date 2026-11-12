@@ -1,0 +1,244 @@
+{
+  "checked_at_utc": "2026-11-12T16:30:17.571510+00:00",
+  "identity": {
+    "environment": "DEMO",
+    "read_only": true,
+    "view_authorized": true,
+    "pinned_account_id_matches": true,
+    "broker_name": "pepperstoneuk",
+    "currency": "GBP",
+    "broker_name_matches_configuration": true
+  },
+  "execution_enabled": false,
+  "execution_readiness": "NO_GO",
+  "response_validation": {
+    "request_type": 2116,
+    "response_type": 2117,
+    "correlation_and_account_checked": true,
+    "symbol_id_matches": true,
+    "full_symbol_count": 1
+  },
+  "fields": {
+    "minVolume": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "99999999999900"
+    },
+    "maxVolume": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "99999999999900"
+    },
+    "stepVolume": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "lotSize": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "10000"
+    },
+    "digits": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "2"
+    },
+    "pipPosition": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "slDistance": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "tpDistance": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "distanceSetIn": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "tradingMode": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "commission": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "commissionType": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "2"
+    },
+    "minCommission": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "minCommissionType": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "preciseTradingCommissionRate": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "preciseMinCommission": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "pnlConversionFeeRate": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "leverageId": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "52133"
+    }
+  },
+  "volume": {
+    "minVolume": {
+      "protocol_hundredths": "99999999999900",
+      "units": "999999999999",
+      "lots": "9999999999.99"
+    },
+    "maxVolume": {
+      "protocol_hundredths": "99999999999900",
+      "units": "999999999999",
+      "lots": "9999999999.99"
+    },
+    "stepVolume": {
+      "protocol_hundredths": "1",
+      "units": "0.01",
+      "lots": "0.0001"
+    },
+    "lotSize": {
+      "protocol_hundredths": "10000",
+      "units": "100",
+      "lots": "1"
+    }
+  },
+  "volume_independently_verified": false,
+  "blockers": [
+    "INDEPENDENT_VOLUME_CONFIRMATION_REQUIRED"
+  ],
+  "margin_currency": "GBP",
+  "margin_note": "Hypothetical estimates; not proof of admissible volume or actual execution margin",
+  "account_risk_fields": {
+    "accountType": {
+      "present": true,
+      "raw_integer": "0"
+    },
+    "leverageInCents": {
+      "present": true,
+      "raw_integer": "3000"
+    },
+    "totalMarginCalculationType": {
+      "present": true,
+      "raw_integer": "0"
+    },
+    "limitedRiskMarginCalculationStrategy": {
+      "present": false,
+      "raw_integer": null
+    }
+  },
+  "hypothetical_margin": [
+    {
+      "lots": "0.01",
+      "units": "1",
+      "protocol_volume": "100",
+      "buy_margin": "146.35",
+      "sell_margin": "146.33"
+    },
+    {
+      "lots": "0.1",
+      "units": "10",
+      "protocol_volume": "1000",
+      "buy_margin": "1463.5",
+      "sell_margin": "1463.3"
+    },
+    {
+      "lots": "1",
+      "units": "100",
+      "protocol_volume": "10000",
+      "buy_margin": "14634.95",
+      "sell_margin": "14632.95"
+    }
+  ],
+  "dynamic_leverage_tiers": [
+    {
+      "max_notional_usd": "1000000",
+      "raw_leverage": 2000
+    }
+  ],
+  "xauusd_quote": {
+    "bid": "3873.08",
+    "ask": "3873.16",
+    "timestamp_utc": "2026-11-12T16:30:17.895000+00:00",
+    "server_age_seconds": 0.13947200775146484
+  },
+  "spread_usd_per_unit": "0.08",
+  "gbp_conversion": {
+    "verified": true,
+    "pair": "GBPUSD",
+    "quote": {
+      "bid": "1.32336",
+      "ask": "1.32339",
+      "timestamp_utc": "2026-11-12T16:30:18.314000+00:00",
+      "server_age_seconds": 0.5453519821166992
+    },
+    "gbp_per_usd_lower": "0.7556351491245966797391547465",
+    "gbp_per_usd_upper": "0.7556522790472736065771974368",
+    "one_usd_move_gbp_per_unit_range": [
+      "0.7556351491245966797391547465",
+      "0.7556522790472736065771974368"
+    ],
+    "spread_gbp_per_unit_range": [
+      "0.06045081192996773437913237972",
+      "0.06045218232378188852617579494"
+    ],
+    "note": "Indicative bid/ask bounds at separate instants, not broker P&L conversion guarantee"
+  },
+  "indicative_margin_crosscheck": {
+    "assumed_gold_leverage_for_comparison": "20",
+    "source": "Pepperstone UK public retail gold leverage table; not account-specific execution evidence",
+    "note": "Quotes and margin estimates sampled at separate instants; raw dynamic tier leverage=2000 is preserved without assuming undocumented scaling",
+    "hypothetical_rows": [
+      {
+        "lots": "0.01",
+        "indicative_notional_gbp": "2926.762181114738242050538024",
+        "indicative_margin_at_20": "146.3381090557369121025269012",
+        "reported_buy_margin_gbp": "146.35",
+        "implied_leverage_from_sampled_quote": "19.99837499907576523437333805"
+      },
+      {
+        "lots": "0.1",
+        "indicative_notional_gbp": "29267.62181114738242050538024",
+        "indicative_margin_at_20": "1463.381090557369121025269012",
+        "reported_buy_margin_gbp": "1463.5",
+        "implied_leverage_from_sampled_quote": "19.99837499907576523437333805"
+      },
+      {
+        "lots": "1",
+        "indicative_notional_gbp": "292676.2181114738242050538024",
+        "indicative_margin_at_20": "14633.81090557369121025269012",
+        "reported_buy_margin_gbp": "14634.95",
+        "implied_leverage_from_sampled_quote": "19.99844332310488414412442833"
+      }
+    ]
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "read_only": true,
+  "samples": [
+    {
+      "checked_at_utc": "2026-11-12T16:15:45.168618+00:00",
+      "status": {
+        "read_only": true,
+        "environment": "DEMO",
+        "health": "HEALTHY",
+        "connected": true,
+        "view_authorized": true,
+        "heartbeat_fresh": true,
+        "snapshot_fresh": true,
+        "quote_fresh": true,
+        "history_complete": true,
+        "quote": {
+          "bid": "3876.36",
+          "ask": "3876.46",
+          "timestamp_utc": "2026-11-12T16:15:44.827000+00:00",
+          "server_age_seconds": 0.34136128425598145
+        },
+        "read_operations": {
+          "application": "OK",
+          "accounts": "OK",
+          "account": "OK",
+          "trader": "OK",
+          "assets": "OK",
+          "symbols": "OK",
+          "symbol": "OK",
+          "reconcile": "OK",
+          "orders": "OK",
+          "deals": "OK",
+          "pnl": "OK",
+          "margin": "OK",
+          "spots": "OK"
+        },
+        "last_error": null,
+        "account": {
+          "currency": "GBP",
+          "broker": "Pepperstone - Europe",
+          "mode": "HEDGED",
+          "account_access": "FULL_ACCESS",
+          "token_scope": "VIEW_ONLY",
+          "environment": "DEMO"
+        },
+        "symbol": {
+          "name": "XAUUSD",
+          "price_digits": 2,
+          "pip_position": 1,
+          "minimum_units": "999999999999",
+          "step_units": "0.01",
+          "maximum_units": "999999999999",
+          "stop_distance": 0,
+          "target_distance": 0,
+          "distance_unit": "POINTS",
+          "lot_units": "100",
+          "trading_mode": 0
+        },
+        "pending_count": 0,
+        "position_count": 0,
+        "order_history_count": 0,
+        "deal_history_count": 0,
+        "margin_information_available": true,
+        "free_margin_authoritative": false
+      }
+    },
+    {
+      "checked_at_utc": "2026-11-12T16:15:55.169678+00:00",
+      "status": {
+        "read_only": true,
+        "environment": "DEMO",
+        "health": "DISCONNECTED",
+        "connected": false,
+        "view_authorized": false,
+        "heartbeat_fresh": false,
+        "snapshot_fresh": false,
+        "quote_fresh": false,
+        "history_complete": false,
+        "quote": null,
+        "read_operations": {
+          "application": "OK",
+          "accounts": "OK",
+          "account": "OK",
+          "trader": "OK",
+          "assets": "OK",
+          "symbols": "OK",
+          "symbol": "OK",
+          "reconcile": "OK",
+          "orders": "OK",
+          "deals": "OK",
+          "pnl": "OK",
+          "margin": "OK",
+          "spots": "FAILED:BROKER_REQUEST_REJECTED"
+        },
+        "last_error": "BROKER_REQUEST_REJECTED",
+        "account": {
+          "currency": "GBP",
+          "broker": "Pepperstone - Europe",
+          "mode": "HEDGED",
+          "account_access": "FULL_ACCESS",
+          "token_scope": "VIEW_ONLY",
+          "environment": "DEMO"
+        },
+        "symbol": {
+          "name": "XAUUSD",
+          "price_digits": 2,
+          "pip_position": 1,
+          "minimum_units": "999999999999",
+          "step_units": "0.01",
+          "maximum_units": "999999999999",
+          "stop_distance": 0,
+          "target_distance": 0,
+          "distance_unit": "POINTS",
+          "lot_units": "100",
+          "trading_mode": 0
+        },
+        "pending_count": 0,
+        "position_count": 0,
+        "order_history_count": 0,
+        "deal_history_count": 0,
+        "margin_information_available": false,
+        "free_margin_authoritative": false
+      }
+    },
+    {
+      "checked_at_utc": "2026-11-12T16:16:05.171146+00:00",
+      "status": {
+        "read_only": true,
+        "environment": "DEMO",
+        "health": "HEALTHY",
+        "connected": true,
+        "view_authorized": true,
+        "heartbeat_fresh": true,
+        "snapshot_fresh": true,
+        "quote_fresh": true,
+        "history_complete": true,
+        "quote": {
+          "bid": "3877.36",
+          "ask": "3877.46",
+          "timestamp_utc": "2026-11-12T16:16:04.869000+00:00",
+          "server_age_seconds": 0.30176305770874023
+        },
+        "read_operations": {
+          "application": "OK",
+          "accounts": "OK",
+          "account": "OK",
+          "trader": "OK",
+          "assets": "OK",
+          "symbols": "OK",
+          "symbol": "OK",
+          "reconcile": "OK",
+          "orders": "OK",
+          "deals": "OK",
+          "pnl": "OK",
+          "margin": "OK",
+          "spots": "OK"
+        },
+        "last_error": null,
+        "account": {
+          "currency": "GBP",
+          "broker": "Pepperstone - Europe",
+          "mode": "HEDGED",
+          "account_access": "FULL_ACCESS",
+          "token_scope": "VIEW_ONLY",
+          "environment": "DEMO"
+        },
+        "symbol": {
+          "name": "XAUUSD",
+          "price_digits": 2,
+          "pip_position": 1,
+          "minimum_units": "999999999999",
+          "step_units": "0.01",
+          "maximum_units": "999999999999",
+          "stop_distance": 0,
+          "target_distance": 0,
+          "distance_unit": "POINTS",
+          "lot_units": "100",
+          "trading_mode": 0
+        },
+        "pending_count": 0,
+        "position_count": 0,
+        "order_history_count": 0,
+        "deal_history_count": 0,
+        "margin_information_available": true,
+        "free_margin_authoritative": false
+      }
+    }
+  ],
+  "limitations": [
+    "Returned min/max volume is anomalous and not execution-approved",
+    "History verification covers requested last 24 hours only",
+    "Free margin estimate is not authoritative"
+  ]
+}

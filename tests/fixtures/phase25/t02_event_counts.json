@@ -1,0 +1,14 @@
+{
+  "signal_only_started": 3,
+  "bootstrapped_no_catchup": 1,
+  "demo_armed": 3,
+  "data_gap_skip": 6,
+  "first_ifvg": 2,
+  "entry_aborted_fail_closed": 1,
+  "cycle_error_no_trade": 35840,
+  "stale_completed_candle_skip": 5,
+  "position_detected": 10,
+  "position_no_longer_open": 10,
+  "strategy_evaluated": 32,
+  "strategy_rejected": 1
+}

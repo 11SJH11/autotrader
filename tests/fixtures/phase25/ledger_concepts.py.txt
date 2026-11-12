@@ -1,0 +1,9 @@
+def gaps(frame,params,dependencies):
+    output=[]
+    for a,c in zip(frame.itertuples(index=False),frame.iloc[2:].itertuples(index=False)):
+        if c.low>a.high:lower,upper,label=float(a.high),float(c.low),'bullish_fvg'
+        elif c.high<a.low:lower,upper,label=float(c.high),float(a.low),'bearish_fvg'
+        else:continue
+        if a.close<=0 or (upper-lower)/a.close*10000<params['minimum_bps']:continue
+        output.append(Observation(kind='zone',label=label,occurred_at=c.timestamp,confirmed_at=c.available_at,lower=lower,upper=upper))
+    return output

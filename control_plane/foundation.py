@@ -82,10 +82,8 @@ class BaseEngine:
         if type(broker) is not FakeBroker:
             raise TypeError('Only the offline FakeBroker is supported')
         self.broker, self.policy = broker, policy
-        self.db = sqlite3.connect(path, timeout=5, isolation_level=None)
-        self.db.row_factory = sqlite3.Row
-        self.db.execute('PRAGMA journal_mode=WAL')
-        self.db.execute('PRAGMA synchronous=FULL')
+        from .storage import open_database
+        self.db = open_database(path)
         self.db.executescript('''
         CREATE TABLE IF NOT EXISTS commands (
           id TEXT PRIMARY KEY, key TEXT UNIQUE NOT NULL, intent_id TEXT NOT NULL,
@@ -129,6 +127,8 @@ class BaseEngine:
             raise
 
     def reason(self, intent, quote, now):
+        if intent.observation_only:
+            return "OBSERVATION_ONLY"
         p = self.policy
         try:
             self.broker.guard(intent.account_scope)

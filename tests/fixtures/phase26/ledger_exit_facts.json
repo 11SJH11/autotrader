@@ -1,0 +1,646 @@
+{
+  "source": "Investment-Tool/backend/research_output/run-214-trades.csv",
+  "sha256": "b7eb10299ef7980a442d7ad75c22508b5a9a4f762fb76c2da7fdbd8c16d1cfbf",
+  "rows": [
+    {
+      "entry_time": "2026-03-03T02:00:00+00:00",
+      "exit_time": "2026-03-03T06:12:00+00:00",
+      "entry_price": "5339.67",
+      "exit_price": "5299.365",
+      "quantity": "2.481081751643699",
+      "net_pnl": "100.00000000000001",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "5379.975"
+    },
+    {
+      "entry_time": "2026-03-04T03:00:00+00:00",
+      "exit_time": "2026-03-04T06:06:00+00:00",
+      "entry_price": "5156.465",
+      "exit_price": "5121.865000000001",
+      "quantity": "2.9190751445087164",
+      "net_pnl": "101.0",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "5191.065"
+    },
+    {
+      "entry_time": "2026-03-10T03:00:00+00:00",
+      "exit_time": "2026-03-10T08:30:00+00:00",
+      "entry_price": "5166.055",
+      "exit_price": "5187.055",
+      "quantity": "4.857619047619048",
+      "net_pnl": "-102.01",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "5187.055"
+    },
+    {
+      "entry_time": "2026-03-11T03:00:00+00:00",
+      "exit_time": "2026-03-11T03:53:00+00:00",
+      "entry_price": "5217.32",
+      "exit_price": "5200.4",
+      "quantity": "5.9686702127659315",
+      "net_pnl": "-100.98989999999999",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "5200.4"
+    },
+    {
+      "entry_time": "2026-03-12T00:30:00+00:00",
+      "exit_time": "2026-03-12T02:46:00+00:00",
+      "entry_price": "5152.73",
+      "exit_price": "5152.73",
+      "quantity": "3.6906607973422965",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "5125.64"
+    },
+    {
+      "entry_time": "2026-03-13T02:30:00+00:00",
+      "exit_time": "2026-03-13T02:46:00+00:00",
+      "entry_price": "5121.345",
+      "exit_price": "5114.215",
+      "quantity": "14.022440532959111",
+      "net_pnl": "99.98000099999999",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "5128.475"
+    },
+    {
+      "entry_time": "2026-03-25T03:15:00+00:00",
+      "exit_time": "2026-03-25T05:32:00+00:00",
+      "entry_price": "4576.715",
+      "exit_price": "4550.785",
+      "quantity": "3.894323216737326",
+      "net_pnl": "100.97980100999999",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4602.645"
+    },
+    {
+      "entry_time": "2026-04-01T01:45:00+00:00",
+      "exit_time": "2026-04-01T06:48:00+00:00",
+      "entry_price": "4687.91",
+      "exit_price": "4724.52",
+      "quantity": "2.7858399076781857",
+      "net_pnl": "-101.9895990201",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4724.52"
+    },
+    {
+      "entry_time": "2026-04-10T01:00:00+00:00",
+      "exit_time": "2026-04-10T01:36:00+00:00",
+      "entry_price": "4763.21",
+      "exit_price": "4775.415",
+      "quantity": "8.272814668570225",
+      "net_pnl": "100.969703029899",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4751.005"
+    },
+    {
+      "entry_time": "2026-04-14T02:00:00+00:00",
+      "exit_time": "2026-04-14T06:52:00+00:00",
+      "entry_price": "4765.07",
+      "exit_price": "4777.385",
+      "quantity": "8.280909464895961",
+      "net_pnl": "-101.97940006019797",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4777.385"
+    },
+    {
+      "entry_time": "2026-04-15T02:30:00+00:00",
+      "exit_time": "2026-04-15T09:11:00+00:00",
+      "entry_price": "4834.99",
+      "exit_price": "4798.599999999999",
+      "quantity": "2.774377742775353",
+      "net_pnl": "100.95960605959601",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4871.38"
+    },
+    {
+      "entry_time": "2026-04-16T03:15:00+00:00",
+      "exit_time": "2026-04-16T05:34:00+00:00",
+      "entry_price": "4826.63",
+      "exit_price": "4826.63",
+      "quantity": "7.19867293471177",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4812.465"
+    },
+    {
+      "entry_time": "2026-04-17T00:30:00+00:00",
+      "exit_time": "2026-04-17T00:45:00+00:00",
+      "entry_price": "4793.0",
+      "exit_price": "4800.035",
+      "quantity": "14.494556093844219",
+      "net_pnl": "101.96920212019197",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4785.965"
+    },
+    {
+      "entry_time": "2026-04-23T01:15:00+00:00",
+      "exit_time": "2026-04-23T02:05:00+00:00",
+      "entry_price": "4737.0",
+      "exit_price": "4719.8",
+      "quantity": "5.987726403569475",
+      "net_pnl": "102.98889414139389",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4754.2"
+    },
+    {
+      "entry_time": "2026-04-24T01:30:00+00:00",
+      "exit_time": "2026-04-24T02:24:00+00:00",
+      "entry_price": "4698.53",
+      "exit_price": "4685.83",
+      "quantity": "8.190455360851127",
+      "net_pnl": "104.01878308280781",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4711.23"
+    },
+    {
+      "entry_time": "2026-04-28T01:00:00+00:00",
+      "exit_time": "2026-04-28T01:55:00+00:00",
+      "entry_price": "4690.835",
+      "exit_price": "4680.03",
+      "quantity": "9.723181019308937",
+      "net_pnl": "105.05897091363589",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4701.64"
+    },
+    {
+      "entry_time": "2026-04-29T01:15:00+00:00",
+      "exit_time": "2026-04-29T08:37:00+00:00",
+      "entry_price": "4582.69",
+      "exit_price": "4557.459999999999",
+      "quantity": "4.205690076209682",
+      "net_pnl": "106.10956062277226",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4607.92"
+    },
+    {
+      "entry_time": "2026-04-30T02:45:00+00:00",
+      "exit_time": "2026-04-30T04:33:00+00:00",
+      "entry_price": "4562.65",
+      "exit_price": "4542.714999999999",
+      "quantity": "5.37600482713809",
+      "net_pnl": "107.17065622899997",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4582.585"
+    },
+    {
+      "entry_time": "2026-05-01T01:45:00+00:00",
+      "exit_time": "2026-05-01T02:09:00+00:00",
+      "entry_price": "4620.245",
+      "exit_price": "4626.34",
+      "quantity": "17.75920636444388",
+      "net_pnl": "108.24236279128998",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4614.15"
+    },
+    {
+      "entry_time": "2026-05-07T01:15:00+00:00",
+      "exit_time": "2026-05-07T06:35:00+00:00",
+      "entry_price": "4709.855",
+      "exit_price": "4734.4349999999995",
+      "quantity": "4.447713035769048",
+      "net_pnl": "109.32478641920288",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4685.275"
+    },
+    {
+      "entry_time": "2026-05-12T01:00:00+00:00",
+      "exit_time": "2026-05-12T01:39:00+00:00",
+      "entry_price": "4749.51",
+      "exit_price": "4725.445000000001",
+      "quantity": "4.588324715703169",
+      "net_pnl": "110.41803428339492",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4773.575"
+    },
+    {
+      "entry_time": "2026-05-13T03:30:00+00:00",
+      "exit_time": "2026-05-13T06:16:00+00:00",
+      "entry_price": "4700.58",
+      "exit_price": "4713.455",
+      "quantity": "8.661919582619719",
+      "net_pnl": "111.52221462622887",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4687.705"
+    },
+    {
+      "entry_time": "2026-05-14T01:15:00+00:00",
+      "exit_time": "2026-05-14T04:00:00+00:00",
+      "entry_price": "4689.3",
+      "exit_price": "4671.450000000001",
+      "quantity": "6.31022054747869",
+      "net_pnl": "112.63743677249117",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4707.15"
+    },
+    {
+      "entry_time": "2026-05-21T02:15:00+00:00",
+      "exit_time": "2026-05-21T02:46:00+00:00",
+      "entry_price": "4551.725",
+      "exit_price": "4532.555",
+      "quantity": "5.9344711079924695",
+      "net_pnl": "113.76381114021608",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4570.895"
+    },
+    {
+      "entry_time": "2026-05-22T00:45:00+00:00",
+      "exit_time": "2026-05-22T00:51:00+00:00",
+      "entry_price": "4537.94",
+      "exit_price": "4530.29",
+      "quantity": "15.019797287793947",
+      "net_pnl": "-114.90144925161823",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4530.29"
+    },
+    {
+      "entry_time": "2026-06-03T01:15:00+00:00",
+      "exit_time": "2026-06-03T08:51:00+00:00",
+      "entry_price": "4471.415",
+      "exit_price": "4446.7",
+      "quantity": "4.602566650176063",
+      "net_pnl": "113.75243475910206",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4496.13"
+    },
+    {
+      "entry_time": "2026-06-04T00:30:00+00:00",
+      "exit_time": "2026-06-04T01:12:00+00:00",
+      "entry_price": "4450.765",
+      "exit_price": "4465.46",
+      "quantity": "7.818302763300126",
+      "net_pnl": "-114.88995910669308",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4465.46"
+    },
+    {
+      "entry_time": "2026-06-09T00:15:00+00:00",
+      "exit_time": "2026-06-09T01:19:00+00:00",
+      "entry_price": "4322.755",
+      "exit_price": "4322.755",
+      "quantity": "11.612155131763686",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4312.96"
+    },
+    {
+      "entry_time": "2026-06-16T02:00:00+00:00",
+      "exit_time": "2026-06-16T03:35:00+00:00",
+      "entry_price": "4313.615",
+      "exit_price": "4326.02",
+      "quantity": "9.168968925080222",
+      "net_pnl": "-113.74105951562616",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4326.02"
+    },
+    {
+      "entry_time": "2026-06-17T00:15:00+00:00",
+      "exit_time": "2026-06-17T01:06:00+00:00",
+      "entry_price": "4337.865",
+      "exit_price": "4347.115",
+      "quantity": "12.173367450861608",
+      "net_pnl": "112.60364892046988",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4328.615"
+    },
+    {
+      "entry_time": "2026-06-23T00:45:00+00:00",
+      "exit_time": "2026-06-23T01:17:00+00:00",
+      "entry_price": "4192.685",
+      "exit_price": "4178.92",
+      "quantity": "8.262236499068063",
+      "net_pnl": "-113.72968540967459",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4178.92"
+    },
+    {
+      "entry_time": "2026-06-26T01:30:00+00:00",
+      "exit_time": "2026-06-26T02:19:00+00:00",
+      "entry_price": "4022.735",
+      "exit_price": "4011.575",
+      "quantity": "10.08892370569666",
+      "net_pnl": "-112.59238855557784",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4011.575"
+    },
+    {
+      "entry_time": "2026-07-03T02:30:00+00:00",
+      "exit_time": "2026-07-03T06:14:00+00:00",
+      "entry_price": "4179.16",
+      "exit_price": "4162.8099999999995",
+      "quantity": "6.817520774924744",
+      "net_pnl": "111.46646467002205",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4195.51"
+    },
+    {
+      "entry_time": "2026-07-08T01:30:00+00:00",
+      "exit_time": "2026-07-08T03:01:00+00:00",
+      "entry_price": "4102.73",
+      "exit_price": "4125.18",
+      "quantity": "5.01474963548858",
+      "net_pnl": "-112.58112931672227",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4125.18"
+    },
+    {
+      "entry_time": "2026-07-09T02:45:00+00:00",
+      "exit_time": "2026-07-09T03:10:00+00:00",
+      "entry_price": "4071.06",
+      "exit_price": "4059.29",
+      "quantity": "9.469440783649551",
+      "net_pnl": "111.45531802355505",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4082.83"
+    },
+    {
+      "entry_time": "2026-07-17T02:00:00+00:00",
+      "exit_time": "2026-07-17T03:02:00+00:00",
+      "entry_price": "3983.475",
+      "exit_price": "3983.4750000000004",
+      "quantity": "8.777377871640404",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "3996.3"
+    },
+    {
+      "entry_time": "2026-07-23T01:45:00+00:00",
+      "exit_time": "2026-07-23T07:12:00+00:00",
+      "entry_price": "4121.735",
+      "exit_price": "4102.195",
+      "quantity": "5.760996479211402",
+      "net_pnl": "112.56987120379058",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4141.275"
+    },
+    {
+      "entry_time": "2026-07-24T01:15:00+00:00",
+      "exit_time": "2026-07-24T02:48:00+00:00",
+      "entry_price": "4042.7",
+      "exit_price": "4034.3899999999994",
+      "quantity": "13.681777366525031",
+      "net_pnl": "113.69556991582849",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4051.01"
+    },
+    {
+      "entry_time": "2026-07-29T01:45:00+00:00",
+      "exit_time": "2026-07-29T06:34:00+00:00",
+      "entry_price": "4027.765",
+      "exit_price": "4043.7499999999995",
+      "quantity": "7.183767633092844",
+      "net_pnl": "114.83252561498676",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4011.78"
+    },
+    {
+      "entry_time": "2026-07-30T01:30:00+00:00",
+      "exit_time": "2026-07-30T02:59:00+00:00",
+      "entry_price": "4081.3",
+      "exit_price": "4064.96",
+      "quantity": "7.097971289543183",
+      "net_pnl": "-115.98085087113664",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4064.96"
+    },
+    {
+      "entry_time": "2026-08-06T01:30:00+00:00",
+      "exit_time": "2026-08-06T02:05:00+00:00",
+      "entry_price": "4276.21",
+      "exit_price": "4302.74",
+      "quantity": "4.3279699345053295",
+      "net_pnl": "-114.82104236242529",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4302.74"
+    },
+    {
+      "entry_time": "2026-08-07T01:15:00+00:00",
+      "exit_time": "2026-08-07T01:58:00+00:00",
+      "entry_price": "4244.405",
+      "exit_price": "4258.9349999999995",
+      "quantity": "7.823319472732486",
+      "net_pnl": "113.67283193880102",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4229.875"
+    },
+    {
+      "entry_time": "2026-08-12T03:30:00+00:00",
+      "exit_time": "2026-08-12T04:11:00+00:00",
+      "entry_price": "4407.34",
+      "exit_price": "4398.43",
+      "quantity": "12.885472531783492",
+      "net_pnl": "114.80956025818904",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4416.25"
+    },
+    {
+      "entry_time": "2026-08-13T01:30:00+00:00",
+      "exit_time": "2026-08-13T05:43:00+00:00",
+      "entry_price": "4419.395",
+      "exit_price": "4388.960000000001",
+      "quantity": "3.8100100496393248",
+      "net_pnl": "115.95765586077091",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4449.83"
+    },
+    {
+      "entry_time": "2026-08-14T03:30:00+00:00",
+      "exit_time": "2026-08-14T05:30:00+00:00",
+      "entry_price": "4325.775",
+      "exit_price": "4311.27",
+      "quantity": "8.074266281929342",
+      "net_pnl": "-117.11723241937864",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4311.27"
+    },
+    {
+      "entry_time": "2026-08-21T01:15:00+00:00",
+      "exit_time": "2026-08-21T01:31:00+00:00",
+      "entry_price": "4520.79",
+      "exit_price": "4532.585",
+      "quantity": "9.83010259391133",
+      "net_pnl": "115.94606009518485",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4508.995"
+    },
+    {
+      "entry_time": "2026-08-27T01:15:00+00:00",
+      "exit_time": "2026-08-27T02:38:00+00:00",
+      "entry_price": "4624.835",
+      "exit_price": "4624.835",
+      "quantity": "4.859150236354146",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4600.735"
+    },
+    {
+      "entry_time": "2026-08-28T00:15:00+00:00",
+      "exit_time": "2026-08-28T00:19:00+00:00",
+      "entry_price": "4600.68",
+      "exit_price": "4593.32",
+      "quantity": "15.911076181539052",
+      "net_pnl": "-117.10552069613668",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4593.32"
+    },
+    {
+      "entry_time": "2026-09-01T01:15:00+00:00",
+      "exit_time": "2026-09-01T02:45:00+00:00",
+      "entry_price": "4446.595",
+      "exit_price": "4431.490000000001",
+      "quantity": "7.675237702031027",
+      "net_pnl": "115.93446548917531",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4461.7"
+    },
+    {
+      "entry_time": "2026-09-02T02:45:00+00:00",
+      "exit_time": "2026-09-02T03:34:00+00:00",
+      "entry_price": "4309.19",
+      "exit_price": "4287.27",
+      "quantity": "5.34187090073319",
+      "net_pnl": "-117.09381014406706",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4287.27"
+    },
+    {
+      "entry_time": "2026-09-04T02:30:00+00:00",
+      "exit_time": "2026-09-04T04:00:00+00:00",
+      "entry_price": "4474.11",
+      "exit_price": "4465.615",
+      "quantity": "13.646012012080973",
+      "net_pnl": "115.92287204262638",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4482.605"
+    },
+    {
+      "entry_time": "2026-09-09T01:00:00+00:00",
+      "exit_time": "2026-09-09T05:15:00+00:00",
+      "entry_price": "4364.795",
+      "exit_price": "4388.335",
+      "quantity": "4.973751094437249",
+      "net_pnl": "117.08210076305267",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4341.255"
+    },
+    {
+      "entry_time": "2026-09-10T00:45:00+00:00",
+      "exit_time": "2026-09-10T01:03:00+00:00",
+      "entry_price": "4401.075",
+      "exit_price": "4412.415",
+      "quantity": "10.427947246091858",
+      "net_pnl": "118.25292177068319",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4389.735"
+    },
+    {
+      "entry_time": "2026-09-11T01:45:00+00:00",
+      "exit_time": "2026-09-11T02:50:00+00:00",
+      "entry_price": "4326.87",
+      "exit_price": "4326.87",
+      "quantity": "8.69886751554158",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4340.6"
+    },
+    {
+      "entry_time": "2026-09-15T03:45:00+00:00",
+      "exit_time": "2026-09-15T04:13:00+00:00",
+      "entry_price": "4308.77",
+      "exit_price": "4308.77",
+      "quantity": "13.480299208622396",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4317.63"
+    },
+    {
+      "entry_time": "2026-09-18T01:45:00+00:00",
+      "exit_time": "2026-09-18T03:34:00+00:00",
+      "entry_price": "4347.53",
+      "exit_price": "4347.53",
+      "quantity": "6.537244170136134",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4365.8"
+    },
+    {
+      "entry_time": "2026-09-25T00:45:00+00:00",
+      "exit_time": "2026-09-25T00:57:00+00:00",
+      "entry_price": "4271.44",
+      "exit_price": "4278.565",
+      "quantity": "16.76287031416",
+      "net_pnl": "119.43545098839",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4264.315"
+    },
+    {
+      "entry_time": "2026-10-02T02:15:00+00:00",
+      "exit_time": "2026-10-02T03:01:00+00:00",
+      "entry_price": "4154.095",
+      "exit_price": "4168.780000000001",
+      "quantity": "8.214491351601678",
+      "net_pnl": "120.62980549827394",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4139.41"
+    },
+    {
+      "entry_time": "2026-10-06T00:30:00+00:00",
+      "exit_time": "2026-10-06T00:59:00+00:00",
+      "entry_price": "4140.765",
+      "exit_price": "4148.360000000001",
+      "quantity": "16.041619954345304",
+      "net_pnl": "121.83610355325666",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4133.17"
+    },
+    {
+      "entry_time": "2026-10-07T03:45:00+00:00",
+      "exit_time": "2026-10-07T04:41:00+00:00",
+      "entry_price": "4145.78",
+      "exit_price": "4138.34",
+      "quantity": "16.53957857376288",
+      "net_pnl": "-123.05446458878922",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4138.34"
+    },
+    {
+      "entry_time": "2026-10-08T03:45:00+00:00",
+      "exit_time": "2026-10-08T05:25:00+00:00",
+      "entry_price": "4137.21",
+      "exit_price": "4128.545",
+      "quantity": "14.059309860692654",
+      "net_pnl": "-121.82391994290134",
+      "r_multiple": "-1.0",
+      "metadata.initial_stop": "4128.545"
+    },
+    {
+      "entry_time": "2026-10-13T02:45:00+00:00",
+      "exit_time": "2026-10-13T04:25:00+00:00",
+      "entry_price": "4171.96",
+      "exit_price": "4193.135",
+      "quantity": "5.695663789538196",
+      "net_pnl": "120.60568074347235",
+      "r_multiple": "1.0",
+      "metadata.initial_stop": "4150.785"
+    },
+    {
+      "entry_time": "2026-10-14T00:45:00+00:00",
+      "exit_time": "2026-10-14T01:06:00+00:00",
+      "entry_price": "4157.105",
+      "exit_price": "4157.105",
+      "quantity": "19.427709338261334",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4163.375"
+    },
+    {
+      "entry_time": "2026-10-16T01:00:00+00:00",
+      "exit_time": "2026-10-16T01:20:00+00:00",
+      "entry_price": "4156.345",
+      "exit_price": "4156.345",
+      "quantity": "26.713100340108852",
+      "net_pnl": "0.0",
+      "r_multiple": "0.0",
+      "metadata.initial_stop": "4151.785"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "identity": {
+    "environment": "DEMO",
+    "read_only": true,
+    "view_authorized": true,
+    "pinned_account_id_matches": true,
+    "broker_name": "pepperstoneuk",
+    "currency": "USD",
+    "account_mode": "HEDGED",
+    "broker_name_matches_configuration": true
+  },
+  "separate_token_paths": true,
+  "separate_demo_pins": true,
+  "both_saved_scopes_accounts": true,
+  "starting_balance_matches_owner_statement": false,
+  "account_money_digits": 2,
+  "execution_enabled": false
+}

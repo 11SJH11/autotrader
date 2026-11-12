@@ -1,0 +1,63 @@
+{
+  "mode": "DEMO_READ_ONLY",
+  "execution_enabled": false,
+  "target_seconds": 86400.0,
+  "recorded_active_seconds": 11224.722480113967,
+  "target_duration_observed": false,
+  "samples": 2241,
+  "sampled_seconds": {
+    "connected": 11044.253899122123,
+    "view_authorized": 11044.253899122123,
+    "heartbeat_fresh": 11044.253899122123,
+    "quote_fresh": 11024.199105818989,
+    "snapshot_fresh": 10271.787575706723,
+    "history_complete": 10271.787575706723
+  },
+  "sampled_false_periods": {
+    "connected": 6,
+    "view_authorized": 6,
+    "heartbeat_fresh": 6,
+    "quote_fresh": 3,
+    "snapshot_fresh": 153,
+    "history_complete": 153
+  },
+  "unobserved_gap_seconds": 14.716902301646769,
+  "runs": 2,
+  "planned_stop_runs": 1,
+  "unclean_or_active_runs": 1,
+  "counter_totals": {
+    "connect_attempts": 10,
+    "connections": 10,
+    "authorizations": 10,
+    "disconnects": 8,
+    "recoveries": 1,
+    "requests": 7952,
+    "history_requests": 1366,
+    "heartbeats_sent": 1086,
+    "heartbeats_received": 0,
+    "quote_events": 20042,
+    "api_errors": 0,
+    "rate_limit_errors": 0,
+    "request_timeouts": 0,
+    "history_errors": 0,
+    "stale_quote_errors": 0,
+    "snapshots": 675
+  },
+  "errors": {
+    "SNAPSHOT_CHANGED_RETRY": 36
+  },
+  "resource_maxima": {
+    "rss_mib": 40.19140625,
+    "max_rss_mib": 284.34765625,
+    "cpu_seconds": 178.910438,
+    "cpu_percent_one_core": 10.45300986339777
+  },
+  "rate_limiter_maxima": {
+    "wait_count": 33,
+    "wait_seconds": 3.3940548475366086,
+    "peak_requests_per_second": 10,
+    "peak_history_per_second": 2
+  },
+  "last_sample_utc": "2026-11-12T19:37:38.249175+00:00",
+  "sample_interval_semantics": "right-endpoint estimates; short outages between samples may be missed; counters track reader events"
+}

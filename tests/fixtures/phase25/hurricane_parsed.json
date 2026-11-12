@@ -1,0 +1,155 @@
+[
+  {
+    "fixture_id": "P01",
+    "published": null,
+    "observed_at": "2026-10-27T07:19:23.499244+00:00",
+    "side": "SELL",
+    "zone": [
+      4005.0,
+      4010.0
+    ],
+    "stop": 4015.0,
+    "targets": [
+      4000.0,
+      3995.0,
+      3990.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P02",
+    "published": null,
+    "observed_at": "2026-10-27T08:32:16.817202+00:00",
+    "side": "SELL",
+    "zone": [
+      3998.0,
+      4004.0
+    ],
+    "stop": 4009.0,
+    "targets": [
+      3993.0,
+      3988.0,
+      3983.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P03",
+    "published": null,
+    "observed_at": "2026-10-27T09:10:20.037264+00:00",
+    "side": "SELL",
+    "zone": [
+      4002.0,
+      4008.0
+    ],
+    "stop": 4013.0,
+    "targets": [
+      3997.0,
+      3992.0,
+      3987.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P04",
+    "published": null,
+    "observed_at": "2026-10-27T09:30:01.337708+00:00",
+    "side": "SELL",
+    "zone": [
+      3998.0,
+      4004.0
+    ],
+    "stop": 4009.0,
+    "targets": [
+      3993.0,
+      3988.0,
+      3983.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P05",
+    "published": null,
+    "observed_at": "2026-10-27T13:45:00.547679+00:00",
+    "side": "SELL",
+    "zone": [
+      4030.0,
+      4035.0
+    ],
+    "stop": 4040.0,
+    "targets": [
+      4025.0,
+      4020.0,
+      4015.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P06",
+    "published": null,
+    "observed_at": "2026-10-27T13:47:52.487422+00:00",
+    "side": "SELL",
+    "zone": [
+      4025.0,
+      4030.0
+    ],
+    "stop": 4035.0,
+    "targets": [
+      4020.0,
+      4015.0,
+      4010.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P07",
+    "published": null,
+    "observed_at": "2026-10-27T13:48:59.880673+00:00",
+    "side": "SELL",
+    "zone": [
+      4026.0,
+      4031.0
+    ],
+    "stop": 4036.0,
+    "targets": [
+      4021.0,
+      4016.0,
+      4011.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P08",
+    "published": null,
+    "observed_at": "2026-10-27T14:06:21.261471+00:00",
+    "side": "BUY",
+    "zone": [
+      4027.0,
+      4033.0
+    ],
+    "stop": 4022.0,
+    "targets": [
+      4038.0,
+      4043.0,
+      4048.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  },
+  {
+    "fixture_id": "P09",
+    "published": null,
+    "observed_at": "2026-10-27T14:13:47.848397+00:00",
+    "side": "BUY",
+    "zone": [
+      4035.0,
+      4040.0
+    ],
+    "stop": 4030.0,
+    "targets": [
+      4045.0,
+      4050.0,
+      4055.0
+    ],
+    "provenance": "Real parsed audit; original message text and publication time unavailable"
+  }
+]

@@ -1,0 +1,20 @@
+def entry_plan(self, signal, max_spread):
+        t,s = self.quote()
+        if t.ask-t.bid > max_spread:
+            raise SafetyError(f'Spread {t.ask-t.bid:.3f} exceeds limit {max_spread:.3f}')
+        lo,hi,side = signal['entry_zone_low'], signal['entry_zone_high'], signal['direction']
+        if side == 'BUY':
+            if lo <= t.ask <= hi:
+                return 'market', t.ask
+            if t.ask > hi:
+                if t.ask >= signal['take_profits'][0]:
+                    raise SafetyError('BUY already at/past TP1; no late entry')
+                return 'limit', hi
+            raise SafetyError('BUY price already below entry zone; no chasing')
+        if lo <= t.bid <= hi:
+            return 'market', t.bid
+        if t.bid < lo:
+            if t.bid <= signal['take_profits'][0]:
+                raise SafetyError('SELL already at/past TP1; no late entry')
+            return 'limit', lo
+        raise SafetyError('SELL price already above entry zone; no chasing')

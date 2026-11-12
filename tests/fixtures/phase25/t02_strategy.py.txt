@@ -1,0 +1,103 @@
+NY = ZoneInfo('America/New_York')
+
+UTC = timezone.utc
+
+def asia_key(moment: datetime) -> str | None:
+    t = moment.astimezone(NY)
+    return t.date().isoformat() if 20 <= t.hour < 24 else None
+
+def dt_from_epoch(epoch: int | float, offset_hours: int = 0) -> datetime:
+    return datetime.fromtimestamp(float(epoch) - offset_hours * 3600, UTC)
+
+def complete_15m(minutes: list[dict]) -> list[dict]:
+    """Only exact, contiguous 15-minute buckets; refuse to invent missing bars."""
+    slots: dict[datetime, list[dict]] = {}
+    for b in minutes:
+        t = b['time']
+        if t.tzinfo is None or t.utcoffset() != timedelta(0):
+            raise ValueError('Minute timestamps must be UTC aware')
+        key = t.replace(minute=(t.minute // 15) * 15, second=0, microsecond=0)
+        slots.setdefault(key, []).append(b)
+    result = []
+    for key in sorted(slots):
+        chunk = sorted(slots[key], key=lambda x:x['time'])
+        if len(chunk) != 15 or any(chunk[i]['time'] != key + timedelta(minutes=i) for i in range(15)):
+            continue
+        result.append(dict(time=key, available_at=key + timedelta(minutes=15),
+                           open=float(chunk[0]['open']), high=max(float(x['high']) for x in chunk),
+                           low=min(float(x['low']) for x in chunk), close=float(chunk[-1]['close'])))
+    return result
+
+class Signal:
+    session: str
+    direction: str
+    confirmed_at: str
+    source_fvg_at: str
+    fvg_lower: float
+    fvg_upper: float
+    stop: float
+    signal_close: float
+    fvg_stop_ratio: float
+    accepted: bool
+    reason: str
+
+    def record(self):
+        return asdict(self)
+
+def first_session_ifvg(minute_bars: list[dict], session: str) -> Signal | None:
+    """Find FIRST inversion for one NY Asia session; inspect all prior completed bars.
+
+    A rejected first setup is returned with accepted=False and consumes session.
+    Calling with a series that ends before `confirmed_at` never sees future bars.
+    """
+    bars = complete_15m(minute_bars)
+    if len(bars) < 4:
+        return None
+    # Canonical Ledger FVG detection allows the three bars to cross a session
+    # boundary, but requires the THIRD bar's confirmation inside this session.
+    gaps: list[tuple[int, str, float, float]] = []
+    close_by_end = {b['time']+timedelta(minutes=1):float(b['close']) for b in minute_bars}
+    for i, current in enumerate(bars):
+        if i >= 2 and current['time']-bars[i-2]['time']==timedelta(minutes=30):
+            a = bars[i-2]
+            if current['low'] > a['high']:
+                gaps.append((i, 'bullish_fvg_inverse_short', float(a['high']), float(current['low'])))
+            elif current['high'] < a['low']:
+                gaps.append((i, 'bearish_fvg_inverse_long', float(current['high']), float(a['low'])))
+        done = current['available_at']
+        if asia_key(done) != session:
+            continue
+        candidates = []
+        for gidx, name, low, high in gaps:
+            if gidx >= i or asia_key(bars[gidx]['available_at']) != session:
+                continue
+            # Missing 15m candles invalidate the FVG-to-inversion path.
+            if current['time'] - bars[gidx]['time'] != timedelta(minutes=15*(i-gidx)):
+                continue
+            if name == 'bearish_fvg_inverse_long':
+                qualifies = current['close'] > high and all(b['close'] <= high for b in bars[gidx+1:i])
+                direction = 'long'
+            else:
+                qualifies = current['close'] < low and all(b['close'] >= low for b in bars[gidx+1:i])
+                direction = 'short'
+            if qualifies:
+                candidates.append((gidx, direction, low, high))
+        if not candidates:
+            continue
+        # Ledger prefers the most recently created FVG at one inversion close.
+        gidx, direction, lower, upper = max(candidates, key=lambda x:x[0])
+        path = bars[gidx:i+1]
+        stop = min(b['low'] for b in path) if direction == 'long' else max(b['high'] for b in path)
+        signal_close = close_by_end.get(done)
+        if signal_close is None:
+            return Signal(session,direction,done.isoformat(),bars[gidx]['available_at'].isoformat(),
+                          lower,upper,stop,0.0,float('inf'),False,'missing_signal_minute')
+        distance = abs(signal_close-stop)
+        ratio = (upper-lower)/distance if distance>0 else float('inf')
+        accepted = bool(math.isfinite(ratio) and ratio<=0.20 and
+                        ((direction=='long' and stop<signal_close) or
+                         (direction=='short' and stop>signal_close)))
+        return Signal(session,direction,done.isoformat(),bars[gidx]['available_at'].isoformat(),
+                      lower,upper,stop,signal_close,ratio,accepted,
+                      'accepted' if accepted else 'fvg_ratio_or_stop_rejected')
+    return None

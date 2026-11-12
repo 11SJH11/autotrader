@@ -1,0 +1,35 @@
+def too_old(self, msg):
+        if not msg.date:
+            return True
+        d=msg.date if msg.date.tzinfo else msg.date.replace(tzinfo=timezone.utc)
+        age=(self.now()-d).total_seconds()
+        return age > self.max_age or age < -3 or d < getattr(self, "started_at", d)
+
+async def edited_message(self, ev):
+        if not self.trusted_source(ev.message):
+            return self.store.lifecycle.outcome(ev.message,'IGNORED_SOURCE','EDIT_'+self.source_failure_reason(ev.message),self.source_diagnostic(ev.message))
+        self.waiting.pop(ev.message.id,None)  # Never approve levels superseded by an edit.
+        # Observe revised levels without treating an edit as a new entry.
+        try:
+            revised=from_live_message(ev.message)
+            if revised:
+                hard,soft=validate(revised,self.max_stop)
+                self.store.event(ev.message.id,'EDITED_SIGNAL',{
+                    'side':revised['direction'],
+                    'zone':[revised['entry_zone_low'],revised['entry_zone_high']],
+                    'sl':revised['stop_loss'],'tps':revised['take_profits'],
+                    'hard':hard,'soft':soft,'execution_disabled_for_edit':True})
+        except Exception:
+            self.store.event(ev.message.id,'EDIT_PARSE_FAILED',{'exception_type':'PARSER_EXCEPTION'})
+        self.store.lifecycle.outcome(ev.message,'DUPLICATE' if self.store.has(ev.message.id) else 'STALE','EDIT_NEVER_ENTERS')
+        if not self.store.has(ev.message.id):
+            return  # do not open on old edits or replay
+        self.store.event(ev.message.id,'EDITED','Prior signal edited; review broker orders')
+        if self.mode == 'DEMO':
+            try:
+                removed=self.mt5.cancel_expired(ev.message.id)
+                if removed:
+                    self.store.event(ev.message.id,'CANCELLED_EDIT',removed)
+            except Exception as exc:
+                await self.notify('URGENT: failed to remove pending orders for edited signal '+str(exc))
+        await self.notify(f'EDITED SIGNAL #{ev.message.id}. Any unfilled pending bot orders were cancelled if possible. Existing filled positions are NOT automatically modified; review them in MT5.')

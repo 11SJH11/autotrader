@@ -1,0 +1,335 @@
+[
+  {
+    "name": "t02_strategy.py",
+    "source": "t02_mt5_demo_bot/t02_strategy.py",
+    "source_sha256": "68ceddd6c02102df889929ad50aaaa657ebb901738a90bee8460d56c2208d786",
+    "snapshot_sha256": "8f7ff0d4eda427e85bd637e200c58083852e1077666086ae53114574415b337a",
+    "locations": [
+      {
+        "definition": "NY",
+        "line": 16,
+        "end_line": 16
+      },
+      {
+        "definition": "UTC",
+        "line": 17,
+        "end_line": 17
+      },
+      {
+        "definition": "asia_key",
+        "line": 20,
+        "end_line": 22
+      },
+      {
+        "definition": "dt_from_epoch",
+        "line": 25,
+        "end_line": 26
+      },
+      {
+        "definition": "complete_15m",
+        "line": 29,
+        "end_line": 46
+      },
+      {
+        "definition": "Signal",
+        "line": 50,
+        "end_line": 64
+      },
+      {
+        "definition": "first_session_ifvg",
+        "line": 67,
+        "end_line": 123
+      }
+    ]
+  },
+  {
+    "name": "ledger_baseline.py",
+    "source": "Investment-Tool/backend/app/backtesting/strategies/gold_asia_15m_ifvg_research_v1.py",
+    "source_sha256": "236611d915d771f9b9a6558c5a57941ae0985b53664c13153908819e795d6e14",
+    "snapshot_sha256": "dac4548c44eb9c5818ba21750d09332494807d52481072d9e868ba425fdaaf2b",
+    "locations": [
+      {
+        "definition": "NY",
+        "line": 61,
+        "end_line": 61
+      },
+      {
+        "definition": "ASIA_START_ET",
+        "line": 65,
+        "end_line": 65
+      },
+      {
+        "definition": "ASIA_END_ET",
+        "line": 66,
+        "end_line": 66
+      },
+      {
+        "definition": "TARGET_R",
+        "line": 67,
+        "end_line": 67
+      },
+      {
+        "definition": "BREAKEVEN_TRIGGER_R",
+        "line": 68,
+        "end_line": 68
+      },
+      {
+        "definition": "GoldAsia15mIfvgResearchV1",
+        "line": 72,
+        "end_line": 314
+      },
+      {
+        "definition": "_no_prior_inversion",
+        "line": 317,
+        "end_line": 332
+      },
+      {
+        "definition": "_path_from_gap_to_inversion",
+        "line": 335,
+        "end_line": 362
+      },
+      {
+        "definition": "_asia_session_key",
+        "line": 365,
+        "end_line": 380
+      },
+      {
+        "definition": "_asia_session_end",
+        "line": 383,
+        "end_line": 386
+      },
+      {
+        "definition": "_available_at",
+        "line": 389,
+        "end_line": 394
+      },
+      {
+        "definition": "_ts",
+        "line": 397,
+        "end_line": 403
+      }
+    ]
+  },
+  {
+    "name": "ledger_child.py",
+    "source": "Investment-Tool/backend/app/backtesting/strategies/gold_asia_15m_ifvg_loss_tests_v2.py",
+    "source_sha256": "6a4460e572af5034cf0fdfaf8b7005f2c91be10f9a6b3ab4877e422e7c537f91",
+    "snapshot_sha256": "aaff05ccda622e5bac15006e69149bcb2eea33295c80e0c782ad2a9cfde50422",
+    "locations": [
+      {
+        "definition": "_ControlledGoldChild",
+        "line": 40,
+        "end_line": 140
+      },
+      {
+        "definition": "GoldIfvgRatio020V2",
+        "line": 170,
+        "end_line": 176
+      }
+    ]
+  },
+  {
+    "name": "ledger_concepts.py",
+    "source": "Investment-Tool/backend/app/market_concepts/builtins.py",
+    "source_sha256": "ac509d4205a14d133f6b5fc5bc9feaca2780e8de5da2b9115ca7d2f954ec059c",
+    "snapshot_sha256": "22b42bd5af85d864b88d403a03143cb0a6615d7aec315a9dcd44ce8fea2979c7",
+    "locations": [
+      {
+        "definition": "gaps",
+        "line": 43,
+        "end_line": 51
+      }
+    ]
+  },
+  {
+    "name": "ledger_models.py",
+    "source": "Investment-Tool/backend/app/backtesting/models.py",
+    "source_sha256": "d117366744f7688b3bc55043cb8650e424a208dd9dd01405ca58067d6e47e15f",
+    "snapshot_sha256": "1ff010e1ae5db9f1da7c1700c1d194b3cf4ba81026537a4f383cb934c81da3b1",
+    "locations": [
+      {
+        "definition": "EntrySignal",
+        "line": 11,
+        "end_line": 30
+      },
+      {
+        "definition": "ExitSignal",
+        "line": 34,
+        "end_line": 35
+      },
+      {
+        "definition": "ManagePositionSignal",
+        "line": 39,
+        "end_line": 51
+      }
+    ]
+  },
+  {
+    "name": "hurricane_bot.py",
+    "source": "telegram_mt5_demo_bot/bot.py",
+    "source_sha256": "db12dd2b8f53f58ac14c217c13e2ae4ee5de8c02f84a08b6652b31916d45e499",
+    "snapshot_sha256": "722ec80d0609035a29271ae04644976003a8b316573b5808d12e04cc74f4025f",
+    "locations": [
+      {
+        "definition": "too_old",
+        "line": 182,
+        "end_line": 187
+      },
+      {
+        "definition": "edited_message",
+        "line": 271,
+        "end_line": 298
+      }
+    ]
+  },
+  {
+    "name": "hurricane_bridge.py",
+    "source": "telegram_mt5_demo_bot/mt5_bridge.py",
+    "source_sha256": "14dac2c2306cb4195318f580afc8393f11497446299442067d88f6f2e7af5ec1",
+    "snapshot_sha256": "45608df505844bcc55982333580b99c9f09b9ee884fe5ddf26be24af61545fb6",
+    "locations": [
+      {
+        "definition": "entry_plan",
+        "line": 211,
+        "end_line": 230
+      }
+    ]
+  },
+  {
+    "name": "hurricane_ticks.py",
+    "source": "telegram_mt5_demo_bot/tick_normalization.py",
+    "source_sha256": "9f971e70f1581a0b599b38beb2aa62596def47b700d86ceb82bd932a757d59fc",
+    "snapshot_sha256": "11e1c4d619f1cd1abd6d9029f8378034d7336b812a7a1904829a6fd458e4e887",
+    "locations": [
+      {
+        "definition": "TimestampError",
+        "line": 9,
+        "end_line": 10
+      },
+      {
+        "definition": "UTCClock",
+        "line": 13,
+        "end_line": 98
+      },
+      {
+        "definition": "TickEstimator",
+        "line": 100,
+        "end_line": 186
+      }
+    ]
+  },
+  {
+    "name": "hurricane_rules.py",
+    "source": "telegram_mt5_demo_bot/rules.py",
+    "source_sha256": "7aa8be9e0e857305c6086a80c488000ca4b4fb86268f78ff196a40f06d2cae1c",
+    "snapshot_sha256": "9b1e17e771799ef4dc02834a8e8f229d22c737f2cd90b7c72c9f9f246ecea951",
+    "locations": [
+      {
+        "definition": "from_live_message",
+        "line": 10,
+        "end_line": 37
+      },
+      {
+        "definition": "validate",
+        "line": 40,
+        "end_line": 84
+      }
+    ]
+  },
+  {
+    "name": "hurricane_parser.py",
+    "source": "telegram_mt5_demo_bot/export_parser.py",
+    "source_sha256": "29be717f4b1d16bdf3b829cdec041394d695d70820b4c3c69444bf4b3bd43a25",
+    "snapshot_sha256": "16fd11c3aad6edf96a08c08a297a459842d9a7c6ac5d8de9ff8fae4bad7b3c63",
+    "locations": [
+      {
+        "definition": "HURRICANE",
+        "line": 18,
+        "end_line": 18
+      },
+      {
+        "definition": "HURRICANE_ZONE",
+        "line": 19,
+        "end_line": 22
+      },
+      {
+        "definition": "ALLIANCE",
+        "line": 23,
+        "end_line": 27
+      },
+      {
+        "definition": "STOP",
+        "line": 28,
+        "end_line": 28
+      },
+      {
+        "definition": "TARGET",
+        "line": 29,
+        "end_line": 29
+      },
+      {
+        "definition": "HIT_TP",
+        "line": 30,
+        "end_line": 30
+      },
+      {
+        "definition": "HIT_SL",
+        "line": 31,
+        "end_line": 31
+      },
+      {
+        "definition": "message_text",
+        "line": 34,
+        "end_line": 41
+      },
+      {
+        "definition": "parse_signal",
+        "line": 44,
+        "end_line": 114
+      }
+    ]
+  },
+  {
+    "name": "t02_worker.py",
+    "source": "t02_mt5_demo_bot/t02_demo_bot.py",
+    "source_sha256": "9c9bd1782135f9190d6cc59075c42e0850a22e8bf2a9e05ea12284e2e651d838",
+    "snapshot_sha256": "7bc02498e4d626b785836a34c30fd40a8f1bb53571b257c64b9c1b3baafc5b7c",
+    "locations": [
+      {
+        "definition": "read_minutes",
+        "line": 167,
+        "end_line": 190
+      },
+      {
+        "definition": "risk_volume",
+        "line": 264,
+        "end_line": 277
+      },
+      {
+        "definition": "_open_demo",
+        "line": 288,
+        "end_line": 397
+      },
+      {
+        "definition": "manage_demo",
+        "line": 400,
+        "end_line": 477
+      },
+      {
+        "definition": "session_history_complete",
+        "line": 480,
+        "end_line": 486
+      },
+      {
+        "definition": "recover_feed_session",
+        "line": 489,
+        "end_line": 503
+      },
+      {
+        "definition": "one_iteration",
+        "line": 506,
+        "end_line": 616
+      }
+    ]
+  }
+]

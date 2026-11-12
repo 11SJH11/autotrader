@@ -1,0 +1,233 @@
+{
+  "checked_at_utc": "2026-11-12T19:12:35.152758+00:00",
+  "identity": {
+    "environment": "DEMO",
+    "read_only": true,
+    "view_authorized": true,
+    "pinned_account_id_matches": true,
+    "broker_name": "pepperstoneuk",
+    "currency": "USD",
+    "account_mode": "HEDGED",
+    "broker_name_matches_configuration": true
+  },
+  "execution_enabled": false,
+  "execution_readiness": "NO_GO",
+  "response_validation": {
+    "request_type": 2116,
+    "response_type": 2117,
+    "correlation_and_account_checked": true,
+    "symbol_id_matches": true,
+    "full_symbol_count": 1
+  },
+  "fields": {
+    "minVolume": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "100"
+    },
+    "maxVolume": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "500000"
+    },
+    "stepVolume": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "100"
+    },
+    "lotSize": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "10000"
+    },
+    "digits": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "2"
+    },
+    "pipPosition": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "slDistance": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "tpDistance": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "distanceSetIn": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "tradingMode": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "commission": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "350"
+    },
+    "commissionType": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "2"
+    },
+    "minCommission": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "minCommissionType": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "1"
+    },
+    "preciseTradingCommissionRate": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "350000000"
+    },
+    "preciseMinCommission": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "pnlConversionFeeRate": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "0"
+    },
+    "leverageId": {
+      "present": true,
+      "json_type": "int",
+      "raw_integer": "52133"
+    }
+  },
+  "volume": {
+    "minVolume": {
+      "protocol_hundredths": "100",
+      "units": "1",
+      "lots": "0.01"
+    },
+    "maxVolume": {
+      "protocol_hundredths": "500000",
+      "units": "5000",
+      "lots": "50"
+    },
+    "stepVolume": {
+      "protocol_hundredths": "100",
+      "units": "1",
+      "lots": "0.01"
+    },
+    "lotSize": {
+      "protocol_hundredths": "10000",
+      "units": "100",
+      "lots": "1"
+    }
+  },
+  "volume_independently_verified": false,
+  "blockers": [
+    "INDEPENDENT_VOLUME_CONFIRMATION_REQUIRED"
+  ],
+  "margin_currency": "USD",
+  "margin_note": "Hypothetical estimates; not proof of admissible volume or actual execution margin",
+  "symbol_boolean_fields": {
+    "enableShortSelling": {
+      "present": true,
+      "json_type": "bool",
+      "value": true
+    },
+    "guaranteedStopLoss": {
+      "present": true,
+      "json_type": "bool",
+      "value": false
+    }
+  },
+  "measurement_unit": {
+    "present": true,
+    "value": null
+  },
+  "trader_boolean_fields": {
+    "isLimitedRisk": {
+      "present": true,
+      "json_type": "bool",
+      "value": false
+    },
+    "swapFree": {
+      "present": true,
+      "json_type": "bool",
+      "value": false
+    },
+    "frenchRisk": {
+      "present": true,
+      "json_type": "bool",
+      "value": false
+    }
+  },
+  "account_risk_fields": {
+    "accountType": {
+      "present": true,
+      "raw_integer": "0"
+    },
+    "leverageInCents": {
+      "present": true,
+      "raw_integer": "3000"
+    },
+    "totalMarginCalculationType": {
+      "present": true,
+      "raw_integer": "0"
+    },
+    "limitedRiskMarginCalculationStrategy": {
+      "present": false,
+      "raw_integer": null
+    }
+  },
+  "hypothetical_margin": [
+    {
+      "lots": "0.01",
+      "units": "1",
+      "protocol_volume": "100",
+      "buy_margin": "193.98",
+      "sell_margin": "193.98"
+    },
+    {
+      "lots": "0.1",
+      "units": "10",
+      "protocol_volume": "1000",
+      "buy_margin": "1939.83",
+      "sell_margin": "1939.78"
+    },
+    {
+      "lots": "1",
+      "units": "100",
+      "protocol_volume": "10000",
+      "buy_margin": "19398.3",
+      "sell_margin": "19397.8"
+    }
+  ],
+  "dynamic_leverage_tiers": [
+    {
+      "max_notional_usd": "1000000",
+      "raw_leverage": 2000
+    }
+  ],
+  "xauusd_quote": {
+    "bid": "3879.55",
+    "ask": "3879.64",
+    "timestamp_utc": "2026-11-12T19:12:35.464000+00:00",
+    "server_age_seconds": 0.22165274620056152
+  },
+  "spread_usd_per_unit": "0.09",
+  "gbp_conversion": {
+    "verified": false,
+    "reason": "NOT_REQUIRED_FOR_ACCOUNT_CURRENCY"
+  }
+}

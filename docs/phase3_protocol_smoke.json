@@ -1,0 +1,22 @@
+{
+  "mode": "FICTIONAL_OFFLINE_CTRADER_PROTOCOL_SMOKE",
+  "network_calls": 0,
+  "execution_enabled": false,
+  "offline_peer_calls": 7,
+  "commands": 2,
+  "management_actions": 5,
+  "all_reservations_released": true,
+  "stages": [
+    "MARKET_WITH_NATIVE_RELATIVE_PROTECTION",
+    "PROTECTION_AMEND",
+    "PARTIAL_CLOSE",
+    "FULL_CLOSE",
+    "LIMIT_WITH_NATIVE_ABSOLUTE_PROTECTION",
+    "PENDING_AMEND",
+    "CANCEL"
+  ],
+  "limitations": [
+    "Invented prices, IDs and margin evidence; not real broker execution",
+    "No production trade transport or trading authorization invoked"
+  ]
+}

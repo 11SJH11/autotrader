@@ -1,0 +1,101 @@
+HURRICANE = re.compile(r"\bGOLD\s+(BUY|SELL)\s+SETUP\b", re.I)
+
+HURRICANE_ZONE = re.compile(
+    r"\bGold\s+(?:Buy|Sell)\s+Zone\s*(\d{4,}(?:\.\d+)?)(?:\s*[-–]\s*(\d{4,}(?:\.\d+)?))?",
+    re.I,
+)
+
+ALLIANCE = re.compile(
+    r"\bXAUUSD\s+(BUY|SELL)\s*(LIMIT\s*)?(\d{4,}(?:\.\d+)?)"
+    r"(?:\s*[-–]\s*(\d{4,}(?:\.\d+)?))?",
+    re.I,
+)
+
+STOP = re.compile(r"\bSL\s*:?\s*(\d{4,}(?:\.\d+)?)", re.I)
+
+TARGET = re.compile(r"^\s*TP\s*\d*\s*:?\s*(\d{4,}(?:\.\d+)?)", re.I | re.M)
+
+HIT_TP = re.compile(r"\b(?:HIT\s+TP\s*([1-9])|TP\s*([1-9])\s+HIT)\b", re.I)
+
+HIT_SL = re.compile(r"\b(?:HIT\s+SL|SL\s+HIT)\b", re.I)
+
+def message_text(msg: dict) -> str:
+    value = msg.get('text', '')
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        return ''.join(part if isinstance(part, str) else str(part.get('text', ''))
+                       for part in value)
+    return ''
+
+def parse_signal(msg: dict, name: str) -> dict | None:
+    raw = message_text(msg)
+    if HURRICANE.search(raw):
+        match = HURRICANE.search(raw)
+        zone_match = HURRICANE_ZONE.search(raw)
+        if not zone_match:
+            return None
+        direction = match.group(1).upper()
+        zone = [float(zone_match.group(1)), float(zone_match.group(2) or zone_match.group(1))]
+        kind = 'zone'
+    else:
+        match = ALLIANCE.search(raw)
+        if not match:
+            return None
+        direction = match.group(1).upper()
+        zone = [float(match.group(3)), float(match.group(4) or match.group(3))]
+        kind = 'pending_limit' if match.group(2) else 'zone_or_market'
+
+    stop_match = STOP.search(raw)
+    stop = float(stop_match.group(1)) if stop_match else None
+    targets = [float(x) for x in TARGET.findall(raw)]
+    low, high = min(zone), max(zone)
+    issues = []
+    if stop is None:
+        issues.append('Missing full stop-loss price')
+    elif direction == 'BUY' and not stop < low:
+        issues.append('BUY stop loss is not below the entry zone')
+    elif direction == 'SELL' and not stop > high:
+        issues.append('SELL stop loss is not above the entry zone')
+
+    if not targets:
+        issues.append('No numeric take-profit levels')
+    else:
+        # A 100-point jump in an otherwise 5-to-10-point TP ladder is not safe to trade.
+        gaps = [abs(b - a) for a, b in zip(targets, targets[1:])]
+        if len(gaps) >= 2 and min(gaps) > 0 and max(gaps) > 5 * min(gaps):
+            issues.append('Unusually large gap between take-profit targets: possible typo')
+    if targets and direction == 'BUY':
+        if targets[0] <= high:
+            issues.append('BUY first target is not above the entry zone')
+        if any(later <= earlier for earlier, later in zip(targets, targets[1:])):
+            issues.append('BUY target ladder not strictly increasing: possible typo')
+    elif targets:
+        if targets[0] >= low:
+            issues.append('SELL first target is not below the entry zone')
+        if any(later >= earlier for earlier, later in zip(targets, targets[1:])):
+            issues.append('SELL target ladder not strictly decreasing: possible typo')
+
+    is_update = 'updated' in raw.lower() or 'zone updated' in raw.lower()
+    return {
+        'chat_name': name,
+        'message_id': msg['id'],
+        'date': msg.get('date'),
+        'edited_at': msg.get('edited'),
+        'reply_to_message_id': msg.get('reply_to_message_id'),
+        'direction': direction,
+        'entry_zone_original_order': zone,
+        'entry_zone_low': low,
+        'entry_zone_high': high,
+        'entry_type': kind,
+        'stop_loss': stop,
+        'take_profits': targets,
+        'tp4_hold': bool(re.search(r'\bTP4\s*:\s*Hold\b', raw, re.I)),
+        'is_marked_revision': is_update,
+        'validation_issues': issues,
+        'message_text': raw,
+        'followups': [],
+        'reported_tp_milestones': [],
+        'reported_stop_hit': False,
+        'reported_invalidated': False,
+    }

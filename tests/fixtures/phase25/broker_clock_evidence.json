@@ -1,0 +1,11 @@
+[
+  {
+    "reference_utc_epoch": 1794208094.07375,
+    "raw_time_msc": 1794215293840,
+    "observed_offset_seconds": 7200,
+    "advancing_samples": 9,
+    "span_seconds": 2.006999999983236,
+    "clock_reference_state": "VALIDATED",
+    "local_clock_delta_seconds": 0.13698291778564453
+  }
+]

@@ -1,0 +1,365 @@
+def read_minutes(mt5,offset):
+    rates=mt5.copy_rates_from_pos(SYMBOL,mt5.TIMEFRAME_M1,0,3200)
+    if rates is None or len(rates)<100:
+        raise RuntimeError('Insufficient live 1-minute MT5 history')
+    current_minute=now_utc().replace(second=0,microsecond=0)
+    bars={}
+    for row in rates:
+        t=dt_from_epoch(row['time'],offset)
+        if t.second or t.microsecond:
+            raise RuntimeError('MT5 bar timestamp is not minute aligned')
+        if t+timedelta(minutes=1)>current_minute:
+            continue  # Never expose the forming bar.
+        if t in bars:
+            raise RuntimeError('Duplicate MT5 minute')
+        b=dict(time=t,open=float(row['open']),high=float(row['high']),
+               low=float(row['low']),close=float(row['close']))
+        if not (0<b['low']<=min(b['open'],b['close'])<=b['high'] and
+                b['low']<=max(b['open'],b['close'])<=b['high']):
+            raise RuntimeError('Invalid OHLC candle')
+        bars[t]=b
+    ordered=[bars[t] for t in sorted(bars)]
+    if not ordered:
+        raise RuntimeError('No completed 1-minute candles')
+    return ordered
+
+def risk_volume(mt5,account,info,direction,price,stop,risk_pct=None):
+    """Authorised fixed DEMO volume; monetary stop risk is diagnostic only."""
+    if direction != 'long':
+        raise RuntimeError('T02 is long-only')
+    qty = 0.05
+    step = float(info.volume_step)
+    if not (math.isfinite(step) and step > 0 and
+            float(info.volume_min) <= qty <= float(info.volume_max) and
+            abs(qty/step-round(qty/step)) < 1e-8):
+        raise RuntimeError('Fixed 0.05 lots unsupported by broker; no rounding permitted')
+    loss = mt5.order_calc_profit(mt5.ORDER_TYPE_BUY,SYMBOL,qty,price,stop)
+    if loss is None or not math.isfinite(float(loss)) or loss >= 0:
+        raise RuntimeError('Unable to validate fixed-volume protective stop risk')
+    return qty, -float(loss)
+
+def _open_demo(mt5,root,config,signal,args):
+    if signal.direction != 'long':
+        raise RuntimeError('T02 is long-only')
+    account=same_account(mt5,config)
+    info=exact_symbol(mt5)
+    require_hedging(mt5,account)
+    own,allpos=own_positions(mt5)
+    tracked=set(state_ticket for state_ticket in config.get('_tracked_tickets',[]))
+    if any(str(int(pos.ticket)) not in tracked for pos in own):
+        raise RuntimeError('Untracked T02 position exists; reconcile before new entries')
+    if any(int(o.magic)==MAGIC for o in pending_orders(mt5)):
+        raise RuntimeError('Unattributed T02 pending order; reconcile before new entry')
+    # Telegram/manual positions and orders are intentionally NOT entry blockers.
+    q,age=quote(mt5,config['offset_hours'])
+    spread=float(q.ask-q.bid)
+    if spread>args.max_spread_price:
+        raise RuntimeError('Spread too wide (%.3f > %.3f)'%(spread,args.max_spread_price))
+    direction=signal.direction
+    typ=mt5.ORDER_TYPE_BUY if direction=='long' else mt5.ORDER_TYPE_SELL
+    price=float(q.ask if direction=='long' else q.bid)
+    sl=round(float(signal.stop),int(info.digits))
+    distance=abs(price-sl)
+    if not (distance>0 and ((direction=='long' and sl<price) or (direction=='short' and sl>price))):
+        raise RuntimeError('SL is no longer on correct side of executable demo quote')
+    if distance>args.max_stop_price:
+        raise RuntimeError('Price moved too far from intended setup or SL unexpectedly wide')
+    tp=round(price+distance if direction=='long' else price-distance,int(info.digits))
+    min_distance=float(info.trade_stops_level)*float(info.point)
+    price_for_stop=float(q.bid if direction=='long' else q.ask)
+    if (direction=='long' and (sl>=price_for_stop-min_distance or tp<=price_for_stop+min_distance)) or \
+       (direction=='short' and (sl<=price_for_stop+min_distance or tp>=price_for_stop-min_distance)):
+        raise RuntimeError('SL/TP too close to market for broker minimum stops')
+    # Explicit fixed-volume DEMO policy; never permit live execution.
+    if getattr(args,'mode',None) != 'demo' or getattr(account, 'trade_mode', None) != mt5.ACCOUNT_TRADE_MODE_DEMO:
+        raise RuntimeError('Fixed-lot execution requires a verified DEMO account')
+
+    lots,requested_loss=risk_volume(mt5,account,info,direction,price,sl)
+    event(root, 'fixed_demo_risk', lots=lots,
+          estimated_stop_loss=requested_loss,risk_policy='FIXED_VOLUME_DIAGNOSTIC_ONLY',currency=account.currency)
+    if sum(float(p.volume) for p in own)+lots > getattr(args,'max_open_lots',.15)+1e-8:
+        raise RuntimeError('T02 total open-volume limit exceeded')
+    request={'action':mt5.TRADE_ACTION_DEAL,'symbol':SYMBOL,'volume':lots,'type':typ,
+             'price':price,'sl':sl,'tp':tp,'deviation':args.deviation_points,
+             'magic':MAGIC,'comment':'T02DEMO_'+signal.session.replace('-',''),
+             'type_time':mt5.ORDER_TIME_GTC,'type_filling':send_fill_mode(mt5,info)}
+    same_account(mt5,config); quote(mt5,config['offset_hours'])
+    own_latest,_=own_positions(mt5)
+    if any(str(int(pos.ticket)) not in tracked for pos in own_latest):
+        raise RuntimeError('Unexpected T02 position appeared during preflight; SKIP')
+    if any(int(o.magic)==MAGIC for o in pending_orders(mt5)):
+        raise RuntimeError('Unexpected T02 pending order appeared during preflight; SKIP')
+    check=mt5.order_check(request)
+    if check is None or int(check.retcode)!=0:
+        raise RuntimeError('MT5 order_check rejected: '+str(check))
+    # An unexpected account switch cannot become authorized between check and send.
+    account=same_account(mt5,config)
+    latest,_=quote(mt5,config['offset_hours'])
+    if max(abs(float(latest.ask)-float(q.ask)),abs(float(latest.bid)-float(q.bid)))>1e-8:
+        raise RuntimeError('Quote changed during preflight; no submission')
+    attempt_path=root/'attempts'/('T02DEMO_'+signal.session.replace('-','')+'.json')
+    if attempt_path.exists():
+        raise RuntimeError('Durable execution attempt already exists; reconcile without resubmission')
+    write_json(attempt_path,dict(state='SUBMITTING',at=iso(now_utc()),identity=config['identity'],request=request,estimated_stop_loss=requested_loss))
+    event(root,'entry_order_attempt',request=request)
+    result=mt5.order_send(request)
+    write_json(attempt_path,dict(state='NATIVE_RESULT',at=iso(now_utc()),identity=config['identity'],request=request,
+        estimated_stop_loss=requested_loss,result=result._asdict() if hasattr(result,'_asdict') else vars(result) if result is not None else None))
+    # Unknown send result is NEVER retried. The session is already consumed.
+    event(root,'order_result',retcode=(getattr(result,'retcode',None)),lots=lots,
+          requested_entry=price,stop=sl,target=tp,estimated_stop_loss=requested_loss)
+    if result is None or int(result.retcode)!=int(mt5.TRADE_RETCODE_DONE):
+        raise RuntimeError('Demo order was not confirmed DONE; no retry (manual reconciliation required)')
+    sys.path.insert(0,str(Path(__file__).resolve().parent.parent/'telegram_mt5_demo_bot'))
+    from broker_reconciliation import reconcile
+    class Gateway:
+        m=mt5
+        symbol=SYMBOL
+        MAGIC=MAGIC
+        def check_demo(self,read_only=False):return same_account(mt5,config)
+    evidence=reconcile(Gateway(),request,result)
+    event(root,'independent_submission_verification',evidence=evidence)
+    if evidence['status']=='CONFIRMED_CLOSED':
+        ticket=int(evidence['positions'][0])
+        write_json(attempt_path,dict(state='CONFIRMED_CLOSED',identity=config['identity'],request=request,evidence=evidence))
+        return dict(ticket=ticket,closed=True,realised=evidence['profit'])
+    if evidence['status']!='CONFIRMED_OPENING_FILL':
+        raise RuntimeError('Independent broker fill verification unresolved; reconcile manually')
+    own,_=own_positions(mt5)
+    created=[pos for pos in own if str(int(pos.ticket)) not in tracked and str(getattr(pos,'comment',''))==request['comment']]
+    if len(created)!=1:
+        raise RuntimeError('Demo fill DONE but exactly one new T02 position was not found; verify manually')
+    pos=created[0]
+    if abs(float(pos.volume)-lots)>1e-7:
+        raise RuntimeError('Owned fill volume differs; verify manually')
+    if float(pos.sl)<=0 or float(pos.tp)<=0:
+        raise RuntimeError('BROKER POSITION HAS NO SERVER SL/TP; resolve in MT5 immediately')
+    actual_entry=float(pos.price_open)
+    risk=abs(actual_entry-sl)
+    if risk<=0:
+        raise RuntimeError('Invalid actual fill risk')
+    actual_loss=mt5.order_calc_profit(typ,SYMBOL,float(pos.volume),actual_entry,float(pos.sl))
+    if actual_loss is None or not math.isfinite(float(actual_loss)) or actual_loss>=0:
+        raise RuntimeError('Cannot validate actual fill protective stop risk; reconcile in MT5')
+    event(root,'actual_fixed_demo_risk',ticket=int(pos.ticket),lots=float(pos.volume),
+          actual_stop_loss=-float(actual_loss),currency=account.currency,risk_policy='FIXED_VOLUME_DIAGNOSTIC_ONLY')
+    write_json(attempt_path,dict(state='CONFIRMED_OPEN',identity=config['identity'],request=request,ticket=int(pos.ticket),actual_stop_loss=-float(actual_loss)))
+    return dict(ticket=int(pos.ticket),source='t02_algo',magic=MAGIC,
+                entry=actual_entry,initial_risk=risk,initial_stop=sl,
+                target=float(pos.tp),direction=direction,volume=float(pos.volume),
+                be_armed=False,session=signal.session,opened_at=iso(now_utc()))
+
+def manage_demo(mt5,root,config,state,bars):
+    """Manage only own tracked ticket(s), never Telegram or manual positions."""
+    positions=state.get('positions',{})
+    if not positions:
+        return
+    account=same_account(mt5,config)
+    require_hedging(mt5,account)
+    own,_=own_positions(mt5)
+    by_ticket={str(int(p.ticket)):p for p in own}
+    for ticket,meta in list(positions.items()):
+        pos=by_ticket.get(ticket)
+        if pos is None:
+            deals=mt5.history_deals_get(position=int(ticket))
+            if deals is None:
+                event(root,'closure_unreconciled',ticket=int(ticket),reason='history_unavailable')
+                state['execution_blocked']=True
+                continue
+            incoming=[d for d in deals if int(d.entry)==mt5.DEAL_ENTRY_IN and int(d.magic)==MAGIC and d.symbol==SYMBOL]
+            exits=[d for d in deals if int(d.entry) in (mt5.DEAL_ENTRY_OUT,getattr(mt5,'DEAL_ENTRY_OUT_BY',-20)) and d.symbol==SYMBOL]
+            if not incoming or abs(sum(d.volume for d in incoming)-sum(d.volume for d in exits))>1e-8:
+                state['execution_blocked']=True
+                event(root,'closure_unreconciled',ticket=int(ticket),reason='exit_volume_not_verified')
+                continue
+            event(root,'tracked_t02_closed',ticket=int(ticket),realised=sum(float(getattr(d,k,0)) for d in deals for k in ('profit','commission','swap','fee')))
+            del positions[ticket]
+            continue
+        # Broker-facing ownership check every cycle, not only on initial fill.
+        if int(pos.magic)!=MAGIC or int(pos.ticket)!=int(meta['ticket']):
+            raise RuntimeError('T02 ticket ownership changed; do not modify position')
+        if meta.get('be_armed'):
+            continue
+        since=datetime.fromisoformat(state['last_bar']) if state.get('last_bar') else bars[-1].get('time',now_utc())
+        eligible=[b for b in bars if b.get('time',since)>=since and (not meta.get('opened_at') or b.get('time',since)+timedelta(minutes=1)>datetime.fromisoformat(meta['opened_at']))]
+        if not eligible:continue
+        last=dict(high=max(b['high'] for b in eligible),low=min(b['low'] for b in eligible))
+        d=meta['direction']; entry=float(meta['entry']); risk=float(meta['initial_risk'])
+        threshold=entry+.68*risk if d=='long' else entry-.68*risk
+        hit=last['high']>=threshold if d=='long' else last['low']<=threshold
+        if hit:
+            meta['be_pending']=True
+        if not meta.get('be_pending'):
+            continue
+        info=exact_symbol(mt5)
+        be=round(entry,int(info.digits))
+        q,_=quote(mt5,config['offset_hours'])
+        min_dist=max(float(info.trade_stops_level),float(getattr(info,'trade_freeze_level',0)))*float(info.point)
+        if (d=='long' and be>=float(q.bid)-min_dist) or (d=='short' and be<=float(q.ask)+min_dist):
+            event(root,'be_triggered_but_stop_unavailable',ticket=int(pos.ticket),threshold=threshold)
+            continue
+        # Never worsen a manually tightened stop.
+        if (d=='long' and float(pos.sl)>=be) or (d=='short' and float(pos.sl)<=be):
+            meta['be_armed']=True
+            event(root,'breakeven_already_met',ticket=int(pos.ticket))
+            continue
+        request=dict(action=mt5.TRADE_ACTION_SLTP,symbol=SYMBOL,position=int(pos.ticket),
+                     sl=be,tp=float(pos.tp),magic=MAGIC)
+        same_account(mt5,config)
+        # Re-read this exact ticket just before modification, to avoid ticket replacement.
+        owned_now,_=own_positions(mt5)
+        latest_pos=next((p for p in owned_now if int(p.ticket)==int(pos.ticket)),None)
+        if latest_pos is None:
+            raise RuntimeError('Tracked T02 position disappeared before SLTP change')
+        if (d=='long' and latest_pos.sl>=be) or (d=='short' and 0<latest_pos.sl<=be):
+            meta['be_armed']=True
+            continue
+        request['tp']=float(latest_pos.tp)
+        event(root,'sltp_attempt',request=request)
+        result=mt5.order_send(request)
+        if result is None or int(result.retcode)!=int(mt5.TRADE_RETCODE_DONE):
+            event(root,'be_modify_failed',ticket=int(pos.ticket),retcode=getattr(result,'retcode',None))
+            continue
+        verified,_=own_positions(mt5)
+        applied=next((p for p in verified if int(p.ticket)==int(pos.ticket)),None)
+        if applied is None or not ((d=='long' and applied.sl>=be) or (d=='short' and 0<applied.sl<=be)):
+            event(root,'be_modify_unverified',ticket=int(pos.ticket))
+            continue
+        meta['be_armed']=True
+        event(root,'breakeven_set',ticket=int(pos.ticket),source='t02_algo',stop=be)
+
+def session_history_complete(bars, closed_at):
+    begin=closed_at.astimezone(ZoneInfo('America/New_York')).replace(
+        hour=19,minute=15,second=0,microsecond=0).astimezone(UTC)
+    expected=int((closed_at-begin).total_seconds()//60)
+    times=[b['time'] for b in bars if begin<=b['time']<closed_at]
+    return expected>0 and len(times)==expected and set(times)=={
+        begin+timedelta(minutes=i) for i in range(expected)}
+
+def recover_feed_session(root,state,bars,session,closed_at,previous,age):
+    # Only a fresh, consecutive observation can recover a feed block. Reconstruct
+    # the entire session, including 45 minutes needed by the first possible FVG.
+    if (not session or session not in state.get('blocked_sessions',[]) or
+            previous is None or closed_at-timedelta(minutes=1)-previous!=timedelta(minutes=1) or
+            not -3<=age<=15 or not session_history_complete(bars,closed_at)):
+        return
+    earlier=first_session_ifvg(bars,session)
+    if earlier is not None:
+        state['attempted_sessions']=sorted(set(state.get('attempted_sessions',[]))|{session})
+        event(root,'recovery_ifvg_consumed_no_order',session=session,signal=earlier.record())
+        return
+    state['blocked_sessions']=[x for x in state['blocked_sessions'] if x!=session]
+    event(root,'feed_session_recovered',session=session,through=iso(closed_at),
+          reason='complete_history_no_prior_first_ifvg')
+
+def one_iteration(mt5,root,config,state,args,first_cycle=False):
+    if _GATEWAY is not None and _GATEWAY.m is mt5:
+        _GATEWAY.ensure_connected_for_new_signal()  # Bounded read/attach only, never retries a submission.
+    same_account(mt5,config)
+    exact_symbol(mt5)
+    snapshot_positions(mt5,root,state,config)
+    quote(mt5,config['offset_hours'])
+    effective_offset=(_GATEWAY.tick_estimator.offset/3600 if _GATEWAY is not None and _GATEWAY.m is mt5 else config['offset_hours'])
+    bars=read_minutes(mt5,effective_offset)
+    latest=bars[-1]['time']
+    previous=state.get('last_bar')
+    prev_dt=datetime.fromisoformat(previous) if previous else None
+    current_closed_at=latest+timedelta(minutes=1)
+    age=(now_utc()-current_closed_at).total_seconds()
+    current_session=asia_key(current_closed_at)
+    update_health(root,last_market_data=iso(current_closed_at),candle_age_seconds=age,
+                  blocked_sessions=state.get('blocked_sessions',[]),current_session=current_session)
+    recover_feed_session(root,state,bars,current_session,current_closed_at,prev_dt,age)
+    signal=None
+    if current_session and current_closed_at.minute%15==0 and (prev_dt is None or latest>prev_dt):
+        signal=first_session_ifvg(bars,current_session)
+        start=current_closed_at.astimezone(ZoneInfo('America/New_York')).replace(hour=20,minute=0,second=0,microsecond=0).astimezone(UTC)-timedelta(minutes=45)
+        expected=int((current_closed_at-start).total_seconds()//60)
+        observed=len({b['time'] for b in bars if start<=b['time']<current_closed_at})
+        complete=observed==expected
+        gate=('bootstrap_no_catchup' if prev_dt is None else
+              'execution_locked' if state.get('execution_blocked') else
+              'session_consumed' if current_session in state.get('attempted_sessions',[]) else
+              'session_blocked' if current_session in state.get('blocked_sessions',[]) else
+              'data_gap' if latest-prev_dt>timedelta(minutes=1) else
+              'incomplete_history' if not complete else
+              'stale_candle' if not -3<=age<=15 else 'eligible')
+        event(root,'strategy_evaluated',session=current_session,candle_close=iso(current_closed_at),
+              m1_bars=len(bars),expected_minutes=expected,observed_minutes=observed,
+              result='incomplete_history' if not complete else 'no_ifvg' if signal is None else
+              'accepted_long' if signal.accepted and signal.direction=='long' else 'strategy_rejected',
+              execution_gate=gate,signal=signal.record() if signal else None)
+    # Always manage existing trades even if no new signal may be opened.
+    if args.mode=='demo' and state.get('positions') and (prev_dt is None or latest>prev_dt):
+        manage_demo(mt5,root,config,state,bars)
+    if prev_dt is None:
+        state['last_bar']=latest.isoformat()
+        event(root,'bootstrapped_no_catchup',latest_closed=current_closed_at.isoformat())
+        return
+    if latest<prev_dt:
+        event(root,'clock_or_feed_regression',previous=previous,latest=latest.isoformat())
+        return
+    if latest==prev_dt:
+        return
+    if latest-prev_dt>timedelta(minutes=1):
+        if current_session:
+            blocked=set(state.get('blocked_sessions',[]));blocked.add(current_session)
+            state['blocked_sessions']=sorted(blocked)
+        event(root,'data_gap_skip',from_bar=prev_dt.isoformat(),to_bar=latest.isoformat(),session_blocked=current_session)
+    state['last_bar']=latest.isoformat()
+    if args.mode=='demo' and state.get('execution_blocked'):
+        return  # No new entries until operator manually reconciles state and MT5.
+    # A delayed feed must never turn an old setup into a new market order.
+    if not -3 <= (now_utc()-current_closed_at).total_seconds() <= 15:
+        if current_session:
+            blocked=set(state.get('blocked_sessions',[])); blocked.add(current_session)
+            state['blocked_sessions']=sorted(blocked)
+        event(root,'stale_completed_candle_skip',delay_seconds=(now_utc()-current_closed_at).total_seconds())
+        return
+    if not current_session or current_session in state.get('attempted_sessions',[]) or \
+       current_session in state.get('blocked_sessions',[]):
+        return
+    # Require complete history from NY 20:00 through the latest closed minute.
+    # A missing minute can hide an earlier first inversion, making a later one invalid.
+    ny=ZoneInfo('America/New_York')
+    local=current_closed_at.astimezone(ny)
+    begin=local.replace(hour=20,minute=0,second=0,microsecond=0).astimezone(UTC)
+    needed=int((current_closed_at-begin).total_seconds()//60)
+    # The 20:00-confirmed FVG can use candles beginning at 19:15 NY.
+    begin-=timedelta(minutes=45)
+    needed+=45
+    seen={x['time'] for x in bars if begin<=x['time']<current_closed_at}
+    if len(seen)!=needed:
+        blocked=set(state.get('blocked_sessions',[])); blocked.add(current_session)
+        state['blocked_sessions']=sorted(blocked)
+        event(root,'incomplete_asia_session_history_skip',expected_minutes=needed,actual_minutes=len(seen))
+        return
+    signal=first_session_ifvg(bars,current_session)
+    if signal is None:
+        return
+    # Session consumed when first IFVG is found, even if the bot was started late.
+    state['attempted_sessions']=sorted(set(state.get('attempted_sessions',[]))|{current_session})
+    write_json(runtime_state_path(root,args.mode),state)  # Separate durable observation and execution fences.
+    event(root,'first_ifvg',**signal.record())
+    if signal.confirmed_at!=current_closed_at.isoformat():
+        event(root,'historical_ifvg_not_tradable',session=current_session)
+        return
+    if not signal.accepted or signal.direction != 'long':
+        event(root,'strategy_rejected',reason=signal.reason if not signal.accepted else 'long_only',session=current_session)
+        return
+    if args.mode=='signal':
+        event(root,'signal_only_no_order',session=current_session)
+        return
+    try:
+        # Existing Telegram and T02 positions do not block the next session's entry.
+        execution_config={**config,'_tracked_tickets':list(state['positions'])}
+        opened=open_demo(mt5,root,execution_config,signal,args)
+        if not opened.get('closed'):
+            state['positions'][str(opened['ticket'])]=opened
+        event(root,'demo_position_tracked',**opened)
+    except Exception as e:
+        attempted=(root/'attempts'/('T02DEMO_'+signal.session.replace('-','')+'.json')).exists()
+        state['execution_blocked']=attempted
+        event(root,'entry_aborted_fail_closed' if attempted else 'preflight_rejected_no_submission',error=str(e))
+    finally:
+        write_json(root/'state.json',state)

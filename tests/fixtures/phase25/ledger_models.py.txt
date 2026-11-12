@@ -1,0 +1,37 @@
+class EntrySignal:
+    direction: Direction
+    stop_loss: float | None
+    take_profit: float | None = None
+    reason: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
+    # Market entries preserve the original engine contract (next bar open). A
+    # limit entry remains pending until a later primary bar touches the price.
+    order_type: Literal["market", "limit"] = "market"
+    entry_price: float | None = None
+    max_wait_bars: int | None = None
+    # Optional next-open constraints. Existing strategies retain their contract.
+    min_open_exclusive: float | None = None
+    max_open_inclusive: float | None = None
+    max_stop_distance_pct: float | None = None
+    target_r: float | None = None
+    rejection_reason: str | None = None
+    fill_time_filters_only: bool = False
+    # Exclusive absolute deadline; None preserves existing pending-order behavior.
+    expires_at: datetime | None = None
+
+class ExitSignal:
+    reason: str = "strategy_exit"
+
+class ManagePositionSignal:
+    """Point-in-time position-management instruction.
+
+    Management decisions are created after a completed bar and applied at the
+    next primary-bar open, just like discretionary exits. Protective stop/target
+    orders that are already active remain intrabar orders handled by the engine.
+    """
+
+    new_stop_loss: float | None = None
+    new_take_profit: float | None = None
+    reduce_fraction: float | None = None
+    reason: str = "strategy_manage"
+    metadata: dict[str, Any] = field(default_factory=dict)

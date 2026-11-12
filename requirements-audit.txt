@@ -1,0 +1,7 @@
+# Offline replay and parquet extraction; CPython 3.11.17 verified.
+pandas==2.3.3
+pyarrow==22.0.0
+numpy==2.4.6
+python-dateutil==4.0.0
+pytz==2026.6
+tzdata==2026.6

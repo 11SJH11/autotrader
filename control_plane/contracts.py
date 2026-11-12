@@ -53,6 +53,7 @@ class TradeIntent:
     order_type: str = 'MARKET'
     take_profit: Decimal | None = None
     campaign_id: str | None = None
+    observation_only: bool = False
 
     @property
     def key(self) -> str:
@@ -63,6 +64,8 @@ class TradeIntent:
     def __post_init__(self):
         utc(self.created_at)
         utc(self.valid_until)
+        if type(self.observation_only) is not bool:
+            raise ValueError("Boolean observation fence required")
 
 
 @dataclass(frozen=True)

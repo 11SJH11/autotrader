@@ -1,0 +1,12 @@
+{
+  "mode": "OFFLINE_REPLAY",
+  "real_execution_enabled": false,
+  "runs": 2,
+  "persisted_events": 10,
+  "distinct_events": 10,
+  "cursor": 9,
+  "state": "STOPPED",
+  "paper_orders": 0,
+  "all_strategy_controls_stopped": true,
+  "entry_suspension": true
+}

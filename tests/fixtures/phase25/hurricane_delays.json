@@ -1,0 +1,1354 @@
+[
+  {
+    "fixture_id": "H001",
+    "published": "2026-11-06T05:52:51+00:00",
+    "observed": "2026-11-06T05:52:51.160049+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.160049
+  },
+  {
+    "fixture_id": "H002",
+    "published": "2026-11-06T07:02:09+00:00",
+    "observed": "2026-11-06T07:02:10.251843+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.251843
+  },
+  {
+    "fixture_id": "H003",
+    "published": "2026-11-06T07:04:24+00:00",
+    "observed": "2026-11-06T07:04:24.719792+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.719792
+  },
+  {
+    "fixture_id": "H004",
+    "published": "2026-11-06T07:04:40+00:00",
+    "observed": "2026-11-06T07:04:41.172275+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.172275
+  },
+  {
+    "fixture_id": "H005",
+    "published": "2026-11-06T07:19:10+00:00",
+    "observed": "2026-11-06T07:19:11.909937+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.909937
+  },
+  {
+    "fixture_id": "H006",
+    "published": "2026-11-06T07:20:32+00:00",
+    "observed": "2026-11-06T07:20:33.102683+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.102683
+  },
+  {
+    "fixture_id": "H007",
+    "published": "2026-11-06T07:20:54+00:00",
+    "observed": "2026-11-06T07:20:55.586443+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.586443
+  },
+  {
+    "fixture_id": "H008",
+    "published": "2026-11-06T07:21:45+00:00",
+    "observed": "2026-11-06T07:21:46.750173+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.750173
+  },
+  {
+    "fixture_id": "H009",
+    "published": "2026-11-06T07:51:24+00:00",
+    "observed": "2026-11-06T07:51:26.757224+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.757224
+  },
+  {
+    "fixture_id": "H010",
+    "published": "2026-11-06T07:53:29+00:00",
+    "observed": "2026-11-06T07:53:30.162333+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.162333
+  },
+  {
+    "fixture_id": "H011",
+    "published": "2026-11-06T07:56:38+00:00",
+    "observed": "2026-11-06T07:56:39.407592+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.407592
+  },
+  {
+    "fixture_id": "H012",
+    "published": "2026-11-06T07:59:46+00:00",
+    "observed": "2026-11-06T07:59:47.591817+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.591817
+  },
+  {
+    "fixture_id": "H013",
+    "published": "2026-11-06T08:02:45+00:00",
+    "observed": "2026-11-06T08:02:47.308761+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.308761
+  },
+  {
+    "fixture_id": "H014",
+    "published": "2026-11-06T08:06:01+00:00",
+    "observed": "2026-11-06T08:06:02.174207+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.174207
+  },
+  {
+    "fixture_id": "H015",
+    "published": "2026-11-06T08:08:46+00:00",
+    "observed": "2026-11-06T08:08:47.549677+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.549677
+  },
+  {
+    "fixture_id": "H016",
+    "published": "2026-11-06T08:09:06+00:00",
+    "observed": "2026-11-06T08:09:06.909317+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 0.909317
+  },
+  {
+    "fixture_id": "H017",
+    "published": "2026-11-06T08:16:02+00:00",
+    "observed": "2026-11-06T08:16:04.727376+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.727376
+  },
+  {
+    "fixture_id": "H018",
+    "published": "2026-11-06T08:17:27+00:00",
+    "observed": "2026-11-06T08:17:28.975214+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.975214
+  },
+  {
+    "fixture_id": "H019",
+    "published": "2026-11-06T08:18:04+00:00",
+    "observed": "2026-11-06T08:18:05.858456+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.858456
+  },
+  {
+    "fixture_id": "H020",
+    "published": "2026-11-06T08:18:47+00:00",
+    "observed": "2026-11-06T08:18:48.437890+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.43789
+  },
+  {
+    "fixture_id": "H021",
+    "published": "2026-11-06T08:19:20+00:00",
+    "observed": "2026-11-06T08:19:21.613007+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.613007
+  },
+  {
+    "fixture_id": "H022",
+    "published": "2026-11-06T08:19:48+00:00",
+    "observed": "2026-11-06T08:19:49.074932+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.074932
+  },
+  {
+    "fixture_id": "H023",
+    "published": "2026-11-06T08:21:02+00:00",
+    "observed": "2026-11-06T08:21:03.559441+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.559441
+  },
+  {
+    "fixture_id": "H024",
+    "published": "2026-11-06T08:21:45+00:00",
+    "observed": "2026-11-06T08:21:47.447919+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.447919
+  },
+  {
+    "fixture_id": "H025",
+    "published": "2026-11-06T08:25:03+00:00",
+    "observed": "2026-11-06T08:25:04.349551+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.349551
+  },
+  {
+    "fixture_id": "H026",
+    "published": "2026-11-06T08:25:42+00:00",
+    "observed": "2026-11-06T08:25:43.881882+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.881882
+  },
+  {
+    "fixture_id": "H027",
+    "published": "2026-11-06T09:44:11+00:00",
+    "observed": "2026-11-06T09:44:13.880942+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.880942
+  },
+  {
+    "fixture_id": "H028",
+    "published": "2026-11-06T13:34:51+00:00",
+    "observed": "2026-11-06T13:34:52.076566+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.076566
+  },
+  {
+    "fixture_id": "H029",
+    "published": "2026-11-06T13:51:24+00:00",
+    "observed": "2026-11-06T13:51:26.071081+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.071081
+  },
+  {
+    "fixture_id": "H030",
+    "published": "2026-11-06T13:52:31+00:00",
+    "observed": "2026-11-06T13:52:32.823333+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.823333
+  },
+  {
+    "fixture_id": "H031",
+    "published": "2026-11-06T14:06:50+00:00",
+    "observed": "2026-11-06T14:06:51.049252+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.049252
+  },
+  {
+    "fixture_id": "H032",
+    "published": "2026-11-06T14:09:41+00:00",
+    "observed": "2026-11-06T14:09:41.845006+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.845006
+  },
+  {
+    "fixture_id": "H033",
+    "published": "2026-11-06T14:11:35+00:00",
+    "observed": "2026-11-06T14:11:37.556904+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.556904
+  },
+  {
+    "fixture_id": "H034",
+    "published": "2026-11-06T14:24:19+00:00",
+    "observed": "2026-11-06T14:24:20.340628+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.340628
+  },
+  {
+    "fixture_id": "H035",
+    "published": "2026-11-06T14:25:28+00:00",
+    "observed": "2026-11-06T14:25:29.877973+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.877973
+  },
+  {
+    "fixture_id": "H036",
+    "published": "2026-11-06T14:26:31+00:00",
+    "observed": "2026-11-06T14:26:32.546087+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.546087
+  },
+  {
+    "fixture_id": "H037",
+    "published": "2026-11-06T14:30:50+00:00",
+    "observed": "2026-11-06T14:30:52.719856+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.719856
+  },
+  {
+    "fixture_id": "H038",
+    "published": "2026-11-06T14:32:38+00:00",
+    "observed": "2026-11-06T14:32:39.532452+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.532452
+  },
+  {
+    "fixture_id": "H039",
+    "published": "2026-11-06T14:34:38+00:00",
+    "observed": "2026-11-06T14:34:39.033475+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.033475
+  },
+  {
+    "fixture_id": "H040",
+    "published": "2026-11-06T14:34:46+00:00",
+    "observed": "2026-11-06T14:34:47.965776+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.965776
+  },
+  {
+    "fixture_id": "H041",
+    "published": "2026-11-06T14:35:38+00:00",
+    "observed": "2026-11-06T14:35:39.860523+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.860523
+  },
+  {
+    "fixture_id": "H042",
+    "published": "2026-11-06T14:38:19+00:00",
+    "observed": "2026-11-06T14:38:20.624935+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.624935
+  },
+  {
+    "fixture_id": "H043",
+    "published": "2026-11-06T14:39:01+00:00",
+    "observed": "2026-11-06T14:39:03.665384+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.665384
+  },
+  {
+    "fixture_id": "H044",
+    "published": "2026-11-06T14:41:37+00:00",
+    "observed": "2026-11-06T14:41:38.977612+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.977612
+  },
+  {
+    "fixture_id": "H045",
+    "published": "2026-11-06T14:41:55+00:00",
+    "observed": "2026-11-06T14:41:55.669174+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 0.669174
+  },
+  {
+    "fixture_id": "H046",
+    "published": "2026-11-06T14:46:08+00:00",
+    "observed": "2026-11-06T14:46:10.352748+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.352748
+  },
+  {
+    "fixture_id": "H047",
+    "published": "2026-11-06T14:47:19+00:00",
+    "observed": "2026-11-06T14:47:19.976092+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.976092
+  },
+  {
+    "fixture_id": "H048",
+    "published": "2026-11-06T14:48:08+00:00",
+    "observed": "2026-11-06T14:48:09.838770+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.83877
+  },
+  {
+    "fixture_id": "H049",
+    "published": "2026-11-06T14:49:25+00:00",
+    "observed": "2026-11-06T14:49:26.063336+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.063336
+  },
+  {
+    "fixture_id": "H050",
+    "published": "2026-11-06T14:49:53+00:00",
+    "observed": "2026-11-06T14:49:54.516294+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.516294
+  },
+  {
+    "fixture_id": "H051",
+    "published": "2026-11-06T14:51:17+00:00",
+    "observed": "2026-11-06T14:51:19.384151+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.384151
+  },
+  {
+    "fixture_id": "H052",
+    "published": "2026-11-06T15:00:51+00:00",
+    "observed": "2026-11-06T15:00:52.829456+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.829456
+  },
+  {
+    "fixture_id": "H053",
+    "published": "2026-11-06T15:14:15+00:00",
+    "observed": "2026-11-06T15:14:15.432481+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.432481
+  },
+  {
+    "fixture_id": "H054",
+    "published": "2026-11-06T16:15:41+00:00",
+    "observed": "2026-11-06T16:15:42.566329+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.566329
+  },
+  {
+    "fixture_id": "H055",
+    "published": "2026-11-06T19:43:26+00:00",
+    "observed": "2026-11-06T19:43:28.203648+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.203648
+  },
+  {
+    "fixture_id": "H056",
+    "published": "2026-11-06T19:53:57+00:00",
+    "observed": "2026-11-06T19:53:58.136852+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.136852
+  },
+  {
+    "fixture_id": "H057",
+    "published": "2026-11-09T01:37:11+00:00",
+    "observed": "2026-11-09T01:37:12.318534+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.318534
+  },
+  {
+    "fixture_id": "H058",
+    "published": "2026-11-09T05:15:28+00:00",
+    "observed": "2026-11-09T05:15:30.109009+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.109009
+  },
+  {
+    "fixture_id": "H059",
+    "published": "2026-11-09T07:01:55+00:00",
+    "observed": "2026-11-09T07:02:23.379829+00:00",
+    "edited": true,
+    "parsed_signal": false,
+    "delay_seconds": 28.379829
+  },
+  {
+    "fixture_id": "H060",
+    "published": "2026-11-09T07:04:40+00:00",
+    "observed": "2026-11-09T07:04:41.380511+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.380511
+  },
+  {
+    "fixture_id": "H061",
+    "published": "2026-11-09T07:08:13+00:00",
+    "observed": "2026-11-09T07:08:14.165731+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.165731
+  },
+  {
+    "fixture_id": "H062",
+    "published": "2026-11-09T07:16:17+00:00",
+    "observed": "2026-11-09T07:16:18.347183+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.347183
+  },
+  {
+    "fixture_id": "H063",
+    "published": "2026-11-09T07:29:22+00:00",
+    "observed": "2026-11-09T07:29:32.237160+00:00",
+    "edited": true,
+    "parsed_signal": false,
+    "delay_seconds": 10.23716
+  },
+  {
+    "fixture_id": "H064",
+    "published": "2026-11-09T07:30:38+00:00",
+    "observed": "2026-11-09T07:30:42.945562+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 4.945562
+  },
+  {
+    "fixture_id": "H065",
+    "published": "2026-11-09T07:34:59+00:00",
+    "observed": "2026-11-09T07:35:00.300307+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.300307
+  },
+  {
+    "fixture_id": "H066",
+    "published": "2026-11-09T07:35:46+00:00",
+    "observed": "2026-11-09T07:35:47.318905+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.318905
+  },
+  {
+    "fixture_id": "H067",
+    "published": "2026-11-09T07:38:07+00:00",
+    "observed": "2026-11-09T07:38:08.832713+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.832713
+  },
+  {
+    "fixture_id": "H068",
+    "published": "2026-11-09T07:44:47+00:00",
+    "observed": "2026-11-09T07:47:08.775060+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 141.77506
+  },
+  {
+    "fixture_id": "H069",
+    "published": "2026-11-09T07:47:06+00:00",
+    "observed": "2026-11-09T07:47:08.876064+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.876064
+  },
+  {
+    "fixture_id": "H070",
+    "published": "2026-11-09T07:54:35+00:00",
+    "observed": "2026-11-09T07:54:36.078260+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.07826
+  },
+  {
+    "fixture_id": "H071",
+    "published": "2026-11-09T07:58:20+00:00",
+    "observed": "2026-11-09T07:58:44.513702+00:00",
+    "edited": true,
+    "parsed_signal": true,
+    "delay_seconds": 24.513702
+  },
+  {
+    "fixture_id": "H072",
+    "published": "2026-11-09T07:59:03+00:00",
+    "observed": "2026-11-09T07:59:03.835358+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.835358
+  },
+  {
+    "fixture_id": "H073",
+    "published": "2026-11-09T08:38:51+00:00",
+    "observed": "2026-11-09T08:39:04.443620+00:00",
+    "edited": true,
+    "parsed_signal": false,
+    "delay_seconds": 13.44362
+  },
+  {
+    "fixture_id": "H074",
+    "published": "2026-11-09T08:39:52+00:00",
+    "observed": "2026-11-09T08:39:53.151271+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.151271
+  },
+  {
+    "fixture_id": "H075",
+    "published": "2026-11-09T08:48:02+00:00",
+    "observed": "2026-11-09T08:48:02.926877+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 0.926877
+  },
+  {
+    "fixture_id": "H076",
+    "published": "2026-11-09T08:51:49+00:00",
+    "observed": "2026-11-09T08:51:50.589596+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.589596
+  },
+  {
+    "fixture_id": "H077",
+    "published": "2026-11-09T09:03:39+00:00",
+    "observed": "2026-11-09T09:03:39.993649+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.993649
+  },
+  {
+    "fixture_id": "H078",
+    "published": "2026-11-09T09:04:25+00:00",
+    "observed": "2026-11-09T09:04:27.202250+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.20225
+  },
+  {
+    "fixture_id": "H079",
+    "published": "2026-11-09T09:10:52+00:00",
+    "observed": "2026-11-09T09:10:54.383374+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.383374
+  },
+  {
+    "fixture_id": "H080",
+    "published": "2026-11-09T09:10:54+00:00",
+    "observed": "2026-11-09T09:10:55.732420+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.73242
+  },
+  {
+    "fixture_id": "H081",
+    "published": "2026-11-09T09:24:22+00:00",
+    "observed": "2026-11-09T09:24:23.659797+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.659797
+  },
+  {
+    "fixture_id": "H082",
+    "published": "2026-11-09T10:03:34+00:00",
+    "observed": "2026-11-09T10:03:35.570377+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.570377
+  },
+  {
+    "fixture_id": "H083",
+    "published": "2026-11-09T10:05:12+00:00",
+    "observed": "2026-11-09T10:05:16.919808+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 4.919808
+  },
+  {
+    "fixture_id": "H084",
+    "published": "2026-11-09T10:33:31+00:00",
+    "observed": "2026-11-09T10:33:40.992490+00:00",
+    "edited": true,
+    "parsed_signal": false,
+    "delay_seconds": 9.99249
+  },
+  {
+    "fixture_id": "H085",
+    "published": "2026-11-09T11:04:50+00:00",
+    "observed": "2026-11-09T11:04:50.423763+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.423763
+  },
+  {
+    "fixture_id": "H086",
+    "published": "2026-11-09T11:05:09+00:00",
+    "observed": "2026-11-09T11:05:12.133495+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 3.133495
+  },
+  {
+    "fixture_id": "H087",
+    "published": "2026-11-09T11:18:41+00:00",
+    "observed": "2026-11-09T11:18:43.539692+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.539692
+  },
+  {
+    "fixture_id": "H088",
+    "published": "2026-11-09T11:18:50+00:00",
+    "observed": "2026-11-09T11:18:54.907072+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 4.907072
+  },
+  {
+    "fixture_id": "H089",
+    "published": "2026-11-09T11:37:11+00:00",
+    "observed": "2026-11-09T11:37:13.678907+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.678907
+  },
+  {
+    "fixture_id": "H090",
+    "published": "2026-11-09T11:38:12+00:00",
+    "observed": "2026-11-09T11:38:13.157904+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.157904
+  },
+  {
+    "fixture_id": "H091",
+    "published": "2026-11-09T11:45:34+00:00",
+    "observed": "2026-11-09T11:45:36.140789+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.140789
+  },
+  {
+    "fixture_id": "H092",
+    "published": "2026-11-09T12:01:28+00:00",
+    "observed": "2026-11-09T12:01:31.196935+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 3.196935
+  },
+  {
+    "fixture_id": "H093",
+    "published": "2026-11-09T12:02:27+00:00",
+    "observed": "2026-11-09T12:02:27.532834+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.532834
+  },
+  {
+    "fixture_id": "H094",
+    "published": "2026-11-09T13:28:22+00:00",
+    "observed": "2026-11-09T13:32:55.890108+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 273.890108
+  },
+  {
+    "fixture_id": "H095",
+    "published": "2026-11-09T13:42:14+00:00",
+    "observed": "2026-11-09T13:42:15.626010+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.62601
+  },
+  {
+    "fixture_id": "H096",
+    "published": "2026-11-09T13:43:54+00:00",
+    "observed": "2026-11-09T13:45:01.704617+00:00",
+    "edited": true,
+    "parsed_signal": true,
+    "delay_seconds": 67.704617
+  },
+  {
+    "fixture_id": "H097",
+    "published": "2026-11-09T13:51:39+00:00",
+    "observed": "2026-11-09T13:51:41.312094+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.312094
+  },
+  {
+    "fixture_id": "H098",
+    "published": "2026-11-09T13:55:36+00:00",
+    "observed": "2026-11-09T13:55:40.083146+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 4.083146
+  },
+  {
+    "fixture_id": "H099",
+    "published": "2026-11-09T13:57:15+00:00",
+    "observed": "2026-11-09T13:57:16.538399+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.538399
+  },
+  {
+    "fixture_id": "H100",
+    "published": "2026-11-09T14:21:51+00:00",
+    "observed": "2026-11-09T14:21:52.476156+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.476156
+  },
+  {
+    "fixture_id": "H101",
+    "published": "2026-11-09T14:25:10+00:00",
+    "observed": "2026-11-09T14:25:13.373909+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 3.373909
+  },
+  {
+    "fixture_id": "H102",
+    "published": "2026-11-09T14:25:14+00:00",
+    "observed": "2026-11-09T14:25:16.136002+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.136002
+  },
+  {
+    "fixture_id": "H103",
+    "published": "2026-11-09T14:25:22+00:00",
+    "observed": "2026-11-09T14:25:23.676256+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.676256
+  },
+  {
+    "fixture_id": "H104",
+    "published": "2026-11-09T14:37:40+00:00",
+    "observed": "2026-11-09T14:37:41.981041+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.981041
+  },
+  {
+    "fixture_id": "H105",
+    "published": "2026-11-09T14:40:03+00:00",
+    "observed": "2026-11-09T14:40:05.358816+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.358816
+  },
+  {
+    "fixture_id": "H106",
+    "published": "2026-11-09T14:41:08+00:00",
+    "observed": "2026-11-09T14:41:08.935933+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 0.935933
+  },
+  {
+    "fixture_id": "H107",
+    "published": "2026-11-09T14:44:46+00:00",
+    "observed": "2026-11-09T14:44:48.278238+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.278238
+  },
+  {
+    "fixture_id": "H108",
+    "published": "2026-11-09T14:44:49+00:00",
+    "observed": "2026-11-09T14:44:51.654350+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.65435
+  },
+  {
+    "fixture_id": "H109",
+    "published": "2026-11-09T14:45:09+00:00",
+    "observed": "2026-11-09T14:45:12.238036+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 3.238036
+  },
+  {
+    "fixture_id": "H110",
+    "published": "2026-11-09T14:54:35+00:00",
+    "observed": "2026-11-09T14:54:37.449865+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.449865
+  },
+  {
+    "fixture_id": "H111",
+    "published": "2026-11-09T16:12:44+00:00",
+    "observed": "2026-11-09T16:12:48.036703+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 4.036703
+  },
+  {
+    "fixture_id": "H112",
+    "published": "2026-11-09T18:44:42+00:00",
+    "observed": "2026-11-09T18:44:43.652437+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.652437
+  },
+  {
+    "fixture_id": "H113",
+    "published": "2026-11-09T18:50:04+00:00",
+    "observed": "2026-11-09T18:50:06.186359+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.186359
+  },
+  {
+    "fixture_id": "H114",
+    "published": "2026-11-10T05:51:28+00:00",
+    "observed": "2026-11-10T05:51:28.978878+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.978878
+  },
+  {
+    "fixture_id": "H115",
+    "published": "2026-11-10T07:02:49+00:00",
+    "observed": "2026-11-10T07:02:51.373945+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.373945
+  },
+  {
+    "fixture_id": "H116",
+    "published": "2026-11-10T07:08:12+00:00",
+    "observed": "2026-11-10T07:08:13.750870+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.75087
+  },
+  {
+    "fixture_id": "H117",
+    "published": "2026-11-10T07:08:30+00:00",
+    "observed": "2026-11-10T07:08:31.638476+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.638476
+  },
+  {
+    "fixture_id": "H118",
+    "published": "2026-11-10T07:11:49+00:00",
+    "observed": "2026-11-10T07:11:50.599218+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.599218
+  },
+  {
+    "fixture_id": "H119",
+    "published": "2026-11-10T07:14:06+00:00",
+    "observed": "2026-11-10T07:14:08.136879+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.136879
+  },
+  {
+    "fixture_id": "H120",
+    "published": "2026-11-10T07:14:32+00:00",
+    "observed": "2026-11-10T07:14:34.441770+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.44177
+  },
+  {
+    "fixture_id": "H121",
+    "published": "2026-11-10T07:36:26+00:00",
+    "observed": "2026-11-10T07:36:26.719256+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.719256
+  },
+  {
+    "fixture_id": "H122",
+    "published": "2026-11-10T07:43:15+00:00",
+    "observed": "2026-11-10T07:43:19.586246+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 4.586246
+  },
+  {
+    "fixture_id": "H123",
+    "published": "2026-11-10T07:43:41+00:00",
+    "observed": "2026-11-10T07:43:42.839034+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.839034
+  },
+  {
+    "fixture_id": "H124",
+    "published": "2026-11-10T07:52:14+00:00",
+    "observed": "2026-11-10T07:52:16.907455+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.907455
+  },
+  {
+    "fixture_id": "H125",
+    "published": "2026-11-10T07:52:50+00:00",
+    "observed": "2026-11-10T07:52:51.585631+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.585631
+  },
+  {
+    "fixture_id": "H126",
+    "published": "2026-11-10T07:53:36+00:00",
+    "observed": "2026-11-10T07:53:37.564190+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.56419
+  },
+  {
+    "fixture_id": "H127",
+    "published": "2026-11-10T08:01:17+00:00",
+    "observed": "2026-11-10T08:01:19.198844+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.198844
+  },
+  {
+    "fixture_id": "H128",
+    "published": "2026-11-10T08:01:34+00:00",
+    "observed": "2026-11-10T08:01:38.696505+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 4.696505
+  },
+  {
+    "fixture_id": "H129",
+    "published": "2026-11-10T08:56:27+00:00",
+    "observed": "2026-11-10T08:56:30.165089+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 3.165089
+  },
+  {
+    "fixture_id": "H130",
+    "published": "2026-11-10T09:03:25+00:00",
+    "observed": "2026-11-10T09:03:27.127216+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.127216
+  },
+  {
+    "fixture_id": "H131",
+    "published": "2026-11-10T09:04:40+00:00",
+    "observed": "2026-11-10T09:04:41.721743+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.721743
+  },
+  {
+    "fixture_id": "H132",
+    "published": "2026-11-10T09:06:08+00:00",
+    "observed": "2026-11-10T09:06:10.108738+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.108738
+  },
+  {
+    "fixture_id": "H133",
+    "published": "2026-11-10T09:06:43+00:00",
+    "observed": "2026-11-10T09:06:45.130925+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.130925
+  },
+  {
+    "fixture_id": "H134",
+    "published": "2026-11-10T09:07:24+00:00",
+    "observed": "2026-11-10T09:07:26.318321+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.318321
+  },
+  {
+    "fixture_id": "H135",
+    "published": "2026-11-10T09:07:37+00:00",
+    "observed": "2026-11-10T09:07:38.776743+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.776743
+  },
+  {
+    "fixture_id": "H136",
+    "published": "2026-11-10T09:08:09+00:00",
+    "observed": "2026-11-10T09:08:10.938832+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.938832
+  },
+  {
+    "fixture_id": "H137",
+    "published": "2026-11-10T09:08:48+00:00",
+    "observed": "2026-11-10T09:08:49.525140+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.52514
+  },
+  {
+    "fixture_id": "H138",
+    "published": "2026-11-10T09:09:00+00:00",
+    "observed": "2026-11-10T09:09:02.141567+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.141567
+  },
+  {
+    "fixture_id": "H139",
+    "published": "2026-11-10T09:09:19+00:00",
+    "observed": "2026-11-10T09:09:21.030207+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.030207
+  },
+  {
+    "fixture_id": "H140",
+    "published": "2026-11-10T09:42:59+00:00",
+    "observed": "2026-11-10T09:42:59.687609+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.687609
+  },
+  {
+    "fixture_id": "H141",
+    "published": "2026-11-10T10:33:58+00:00",
+    "observed": "2026-11-10T10:33:59.619338+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.619338
+  },
+  {
+    "fixture_id": "H142",
+    "published": "2026-11-10T13:24:11+00:00",
+    "observed": "2026-11-10T13:24:11.898374+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.898374
+  },
+  {
+    "fixture_id": "H143",
+    "published": "2026-11-10T13:32:28+00:00",
+    "observed": "2026-11-10T13:32:28.354194+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.354194
+  },
+  {
+    "fixture_id": "H144",
+    "published": "2026-11-10T13:45:43+00:00",
+    "observed": "2026-11-10T13:45:45.132173+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.132173
+  },
+  {
+    "fixture_id": "H145",
+    "published": "2026-11-10T13:48:19+00:00",
+    "observed": "2026-11-10T13:48:19.650404+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 0.650404
+  },
+  {
+    "fixture_id": "H146",
+    "published": "2026-11-10T13:57:16+00:00",
+    "observed": "2026-11-10T13:57:16.519582+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.519582
+  },
+  {
+    "fixture_id": "H147",
+    "published": "2026-11-10T13:57:50+00:00",
+    "observed": "2026-11-10T13:57:52.872813+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.872813
+  },
+  {
+    "fixture_id": "H148",
+    "published": "2026-11-10T13:59:12+00:00",
+    "observed": "2026-11-10T13:59:12.448507+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 0.448507
+  },
+  {
+    "fixture_id": "H149",
+    "published": "2026-11-10T14:16:26+00:00",
+    "observed": "2026-11-10T14:16:28.431583+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.431583
+  },
+  {
+    "fixture_id": "H150",
+    "published": "2026-11-10T14:23:55+00:00",
+    "observed": "2026-11-10T14:23:56.216742+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.216742
+  },
+  {
+    "fixture_id": "H151",
+    "published": "2026-11-10T14:24:00+00:00",
+    "observed": "2026-11-10T14:24:02.472954+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 2.472954
+  },
+  {
+    "fixture_id": "H152",
+    "published": "2026-11-10T14:29:13+00:00",
+    "observed": "2026-11-10T14:29:15.301546+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.301546
+  },
+  {
+    "fixture_id": "H153",
+    "published": "2026-11-10T14:36:08+00:00",
+    "observed": "2026-11-10T14:36:38.176546+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 30.176546
+  },
+  {
+    "fixture_id": "H154",
+    "published": "2026-11-10T14:36:37+00:00",
+    "observed": "2026-11-10T14:36:38.275549+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.275549
+  },
+  {
+    "fixture_id": "H155",
+    "published": "2026-11-10T14:38:33+00:00",
+    "observed": "2026-11-10T14:38:33.275444+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.275444
+  },
+  {
+    "fixture_id": "H156",
+    "published": "2026-11-10T14:38:50+00:00",
+    "observed": "2026-11-10T14:38:51.469060+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.46906
+  },
+  {
+    "fixture_id": "H157",
+    "published": "2026-11-10T14:41:12+00:00",
+    "observed": "2026-11-10T14:41:12.612840+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.61284
+  },
+  {
+    "fixture_id": "H158",
+    "published": "2026-11-10T14:45:20+00:00",
+    "observed": "2026-11-10T14:46:02.198649+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 42.198649
+  },
+  {
+    "fixture_id": "H159",
+    "published": "2026-11-10T14:45:59+00:00",
+    "observed": "2026-11-10T14:46:02.391656+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 3.391656
+  },
+  {
+    "fixture_id": "H160",
+    "published": "2026-11-10T14:46:36+00:00",
+    "observed": "2026-11-10T14:46:39.078898+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 3.078898
+  },
+  {
+    "fixture_id": "H161",
+    "published": "2026-11-10T14:47:08+00:00",
+    "observed": "2026-11-10T14:47:09.989946+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 1.989946
+  },
+  {
+    "fixture_id": "H162",
+    "published": "2026-11-10T14:47:14+00:00",
+    "observed": "2026-11-10T14:47:16.031150+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 2.03115
+  },
+  {
+    "fixture_id": "H163",
+    "published": "2026-11-10T14:47:29+00:00",
+    "observed": "2026-11-10T14:47:30.174629+00:00",
+    "edited": false,
+    "parsed_signal": true,
+    "delay_seconds": 1.174629
+  },
+  {
+    "fixture_id": "H164",
+    "published": "2026-11-10T14:49:59+00:00",
+    "observed": "2026-11-10T14:50:06.422922+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 7.422922
+  },
+  {
+    "fixture_id": "H165",
+    "published": "2026-11-10T16:22:45+00:00",
+    "observed": "2026-11-10T16:23:39.218016+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 54.218016
+  },
+  {
+    "fixture_id": "H166",
+    "published": "2026-11-10T16:23:31+00:00",
+    "observed": "2026-11-10T16:23:39.358020+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 8.35802
+  },
+  {
+    "fixture_id": "H167",
+    "published": "2026-11-10T17:04:42+00:00",
+    "observed": "2026-11-10T17:05:08.865301+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 26.865301
+  },
+  {
+    "fixture_id": "H168",
+    "published": "2026-11-10T19:46:23+00:00",
+    "observed": "2026-11-10T19:46:26.936240+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 3.93624
+  },
+  {
+    "fixture_id": "H169",
+    "published": "2026-11-10T19:54:09+00:00",
+    "observed": "2026-11-10T19:54:09.984501+00:00",
+    "edited": false,
+    "parsed_signal": false,
+    "delay_seconds": 0.984501
+  }
+]

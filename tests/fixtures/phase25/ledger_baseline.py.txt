@@ -1,0 +1,336 @@
+NY = ZoneInfo("America/New_York")
+
+ASIA_START_ET = time(20, 0)
+
+ASIA_END_ET = time(0, 0)
+
+TARGET_R = 1.0
+
+BREAKEVEN_TRIGGER_R = 0.68
+
+class GoldAsia15mIfvgResearchV1(Strategy):
+    """First same-session 15m IFVG during Asia, 1R target, 0.68R -> breakeven."""
+
+    spec = StrategySpec(
+        key="gold_asia_15m_ifvg_research_v1",
+        name="Gold Asia 15m IFVG · research baseline v1",
+        description=(
+            "Mechanical source-reconstruction baseline: first same-session 15m "
+            "FVG inversion during 20:00-00:00 ET, immediate next-1m-open entry, "
+            "structural inversion-path stop, 1R target, and breakeven management "
+            "after a completed 1m bar reaches +0.68R."
+        ),
+        category="Research baseline",
+        defaults={"direction": "both"},
+        timeframes=("1m", "15m"),
+        parameters=(
+            ParameterSpec(
+                "direction",
+                "Direction",
+                "choice",
+                "both",
+                choices=("both", "long", "short"),
+                help=(
+                    "Source reconstruction defaults to both directions. Directional "
+                    "variants should be treated as explicit research hypotheses."
+                ),
+            ),
+        ),
+        risk_management={
+            "Session": "20:00-00:00 America/New_York; first IFVG only",
+            "FVG": "Canonical fvg.three_candle.v1; FVG must be confirmed in same Asia session",
+            "IFVG": "First completed 15m close through the FVG far boundary",
+            "Entry": "Market signal at 15m inversion confirmation; next 1m open fill",
+            "Stop": "Extreme from FVG confirmation through inversion confirmation",
+            "Target": "1.0R from actual fill to initial stop",
+            "Breakeven": "After completed 1m bar reaches +0.68R; stop changes next 1m open",
+            "Frequency": "Maximum one detected IFVG setup per Asia session",
+        },
+        source_file=(
+            "backend/app/backtesting/strategies/"
+            "gold_asia_15m_ifvg_research_v1.py"
+        ),
+        concepts={
+            "fvg15": {
+                "key": "fvg.three_candle.v1",
+                "timeframe": "15m",
+                "params": {"minimum_bps": 0.0},
+            },
+        },
+    )
+
+    def __init__(self, **params):
+        super().__init__(**params)
+        self._session_key: date | None = None
+        self._session_attempted = False
+        self._last_processed_15m_start: datetime | None = None
+
+    def reset(self) -> None:
+        self._session_key = None
+        self._session_attempted = False
+        self._last_processed_15m_start = None
+
+    def on_bar(self, ctx: StrategyContext):
+        if ctx.primary_timeframe != "1m":
+            return None
+
+        # Position management is independent of the Asia entry window.
+        if ctx.position is not None:
+            return self._manage_breakeven(ctx)
+
+        bars15 = ctx.bars("15m")
+        if len(bars15) < 3:
+            return None
+
+        current = bars15.iloc[-1]
+        current_start = _ts(current["timestamp"])
+        if self._last_processed_15m_start == current_start:
+            return None
+        self._last_processed_15m_start = current_start
+
+        confirmation_time = _available_at(current, "15m")
+        session_key = _asia_session_key(confirmation_time)
+        if session_key is None:
+            return None
+
+        if self._session_key != session_key:
+            self._session_key = session_key
+            self._session_attempted = False
+
+        if self._session_attempted:
+            return None
+
+        concept = ctx.concept("fvg15")
+        gaps = concept["observations"]
+
+        candidates = []
+        current_close = float(current["close"])
+        direction_filter = str(self.params.get("direction", "both"))
+
+        for gap in gaps:
+            # "Newly formed IFVG during Asia" is frozen here as an inversion of
+            # an FVG that was itself confirmed during the same Asia session.
+            if _asia_session_key(gap.confirmed_at) != session_key:
+                continue
+            if gap.confirmed_at >= confirmation_time:
+                continue
+
+            gap_direction = None
+            if gap.label == "bearish_fvg":
+                # Bearish FVG -> bullish IFVG after the first completed close
+                # above the far/upper edge.
+                if current_close > float(gap.upper) and _no_prior_inversion(
+                    bars15, gap, confirmation_time, "long"
+                ):
+                    gap_direction = "long"
+            elif gap.label == "bullish_fvg":
+                # Bullish FVG -> bearish IFVG after the first completed close
+                # below the far/lower edge.
+                if current_close < float(gap.lower) and _no_prior_inversion(
+                    bars15, gap, confirmation_time, "short"
+                ):
+                    gap_direction = "short"
+
+            if gap_direction is not None:
+                candidates.append({"direction": gap_direction, "gap": gap})
+
+        if not candidates:
+            return None
+
+        # One 15m close can theoretically invalidate more than one older FVG.
+        # Choose the newest source FVG deterministically rather than selecting by
+        # profitability or gap size. Record the ambiguity for later diagnostics.
+        candidates.sort(
+            key=lambda item: pd.Timestamp(item["gap"].confirmed_at), reverse=True
+        )
+        chosen = candidates[0]
+        direction = chosen["direction"]
+        gap = chosen["gap"]
+
+        # The source says first IFVG, not first IFVG in a preferred direction.
+        # If a user explicitly runs long-only/short-only and the first setup is
+        # the other direction, consume the session rather than cherry-picking a
+        # later setup.
+        self._session_attempted = True
+        if direction_filter not in {"both", direction}:
+            return None
+
+        path = _path_from_gap_to_inversion(
+            bars15, gap.confirmed_at, confirmation_time
+        )
+        if path.empty:
+            return None
+
+        stop = (
+            float(pd.to_numeric(path["low"], errors="coerce").min())
+            if direction == "long"
+            else float(pd.to_numeric(path["high"], errors="coerce").max())
+        )
+        if not pd.notna(stop):
+            return None
+
+        metadata = {
+            "strategy_version": "gold_asia_15m_ifvg_research_v1",
+            "source_reconstruction": True,
+            "source_rule": "first newly formed 15m IFVG during Asia; 1:1; BE at 0.68R",
+            "session": "Asia",
+            "asia_session_definition": "20:00-00:00 America/New_York",
+            "asia_session_key": session_key.isoformat(),
+            "ifvg_direction": direction,
+            "ifvg_confirmation_time": confirmation_time.isoformat(),
+            "fvg_label": gap.label,
+            "fvg_occurred_at": gap.occurred_at.isoformat(),
+            "fvg_confirmed_at": gap.confirmed_at.isoformat(),
+            "fvg_lower": float(gap.lower),
+            "fvg_upper": float(gap.upper),
+            "fvg_size": float(gap.upper) - float(gap.lower),
+            "simultaneous_inversions": len(candidates),
+            "entry_semantics": "next_1m_open_after_completed_15m_inversion",
+            "stop_semantics": "extreme_from_fvg_confirmation_through_inversion",
+            "initial_stop": stop,
+            "target_r": TARGET_R,
+            "breakeven_trigger_r": BREAKEVEN_TRIGGER_R,
+            "breakeven_semantics": "completed_1m_touch_then_next_1m_open_management",
+            "intrabar_limitation": (
+                "OHLC engine resolves protective orders before completed-bar "
+                "breakeven management; tick validation required for exact path."
+            ),
+        }
+
+        return EntrySignal(
+            direction=direction,
+            stop_loss=stop,
+            target_r=TARGET_R,
+            reason=f"gold_asia_15m_ifvg_{direction}",
+            metadata=metadata,
+            expires_at=_asia_session_end(session_key),
+        )
+
+    def _manage_breakeven(self, ctx: StrategyContext):
+        position = ctx.position
+        if position is None:
+            return None
+
+        if (position.metadata or {}).get("strategy_version") != "gold_asia_15m_ifvg_research_v1":
+            return None
+        if (position.metadata or {}).get("ifvg_breakeven_armed"):
+            return None
+
+        entry = float(position.entry_price)
+        risk = float(position.initial_risk_per_share)
+        if risk <= 0:
+            return None
+
+        if position.direction == "long" and float(position.stop_loss) >= entry:
+            return None
+        if position.direction == "short" and float(position.stop_loss) <= entry:
+            return None
+
+        bar = ctx.current_bar
+        trigger = (
+            entry + BREAKEVEN_TRIGGER_R * risk
+            if position.direction == "long"
+            else entry - BREAKEVEN_TRIGGER_R * risk
+        )
+        reached = (
+            float(bar["high"]) >= trigger
+            if position.direction == "long"
+            else float(bar["low"]) <= trigger
+        )
+        if not reached:
+            return None
+
+        return ManagePositionSignal(
+            new_stop_loss=entry,
+            reason="ifvg_move_stop_to_breakeven",
+            metadata={
+                "ifvg_breakeven_armed": True,
+                "ifvg_breakeven_trigger_r": BREAKEVEN_TRIGGER_R,
+                "ifvg_breakeven_trigger_price": trigger,
+                "ifvg_breakeven_observed_at": ctx.decision_time.isoformat(),
+                "ifvg_breakeven_application": "next_primary_bar_open",
+            },
+        )
+
+def _no_prior_inversion(
+    bars15: pd.DataFrame,
+    gap,
+    current_confirmation: datetime,
+    direction: str,
+) -> bool:
+    """True only when the current completed bar is the first close to invert gap."""
+    frame = _path_from_gap_to_inversion(
+        bars15, gap.confirmed_at, current_confirmation, exclude_current=True
+    )
+    if frame.empty:
+        return True
+    closes = pd.to_numeric(frame["close"], errors="coerce")
+    if direction == "long":
+        return not bool((closes > float(gap.upper)).any())
+    return not bool((closes < float(gap.lower)).any())
+
+def _path_from_gap_to_inversion(
+    bars15: pd.DataFrame,
+    gap_confirmation: datetime,
+    inversion_confirmation: datetime,
+    *,
+    exclude_current: bool = False,
+) -> pd.DataFrame:
+    if bars15.empty:
+        return bars15
+
+    available = bars15.apply(lambda row: _available_at(row, "15m"), axis=1)
+    start = pd.Timestamp(gap_confirmation)
+    end = pd.Timestamp(inversion_confirmation)
+    if start.tzinfo is None:
+        start = start.tz_localize("UTC")
+    else:
+        start = start.tz_convert("UTC")
+    if end.tzinfo is None:
+        end = end.tz_localize("UTC")
+    else:
+        end = end.tz_convert("UTC")
+
+    available_ts = pd.to_datetime(available, utc=True)
+    mask = (available_ts >= start) & (available_ts <= end)
+    result = bars15.loc[mask].copy()
+    if exclude_current and not result.empty:
+        result = result.iloc[:-1]
+    return result
+
+def _asia_session_key(when: datetime) -> date | None:
+    local = _ts(when).astimezone(NY)
+    minute = local.hour * 60 + local.minute
+    start = ASIA_START_ET.hour * 60 + ASIA_START_ET.minute
+    end = ASIA_END_ET.hour * 60 + ASIA_END_ET.minute
+
+    if start < end:
+        return local.date() if start <= minute < end else None
+
+    # Cross-midnight session. With the frozen 20:00-00:00 definition the second
+    # arm is empty, but retaining generic handling keeps the boundary explicit.
+    if minute >= start:
+        return local.date()
+    if minute < end:
+        return local.date() - timedelta(days=1)
+    return None
+
+def _asia_session_end(session_key: date) -> datetime:
+    crosses_midnight = ASIA_END_ET <= ASIA_START_ET
+    end_date = session_key + timedelta(days=1 if crosses_midnight else 0)
+    return datetime.combine(end_date, ASIA_END_ET, tzinfo=NY)
+
+def _available_at(row, timeframe: str) -> datetime:
+    if "available_at" in row and pd.notna(row["available_at"]):
+        return _ts(row["available_at"])
+    stamp = _ts(row["timestamp"])
+    minutes = {"1m": 1, "15m": 15}[timeframe]
+    return stamp + timedelta(minutes=minutes)
+
+def _ts(value) -> datetime:
+    stamp = pd.Timestamp(value)
+    if stamp.tzinfo is None:
+        stamp = stamp.tz_localize("UTC")
+    else:
+        stamp = stamp.tz_convert("UTC")
+    return stamp.to_pydatetime()

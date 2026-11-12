@@ -1,0 +1,74 @@
+def from_live_message(message, topic_name='Hurricane Trader (Advanced)'):
+    raw=message.raw_text or ''
+    if re.search(r'\bGOLD\s+(BUY|SELL)\s+SETUP\b',raw,re.I):
+        # Full-line tokens prevent the export parser's permissive regex from
+        # silently accepting a numeric prefix (4000oops, negative or comma prices).
+        for line in raw.splitlines():
+            if re.match(r'^\s*(SL\b|TP\s*\d*\s*:|Gold\s+(Buy|Sell)\s+Zone)',line,re.I):
+                patterns=(r'\s*SL\s*:?\s*\d{4,}(?:\.\d+)?\s*',
+                          r'\s*TP\s*\d*\s*:?\s*(?:\d{4,}(?:\.\d+)?|Hold)\s*',
+                          r'\s*Gold\s+(Buy|Sell)\s+Zone\s*\d{4,}(?:\.\d+)?(?:\s*[-–]\s*\d{4,}(?:\.\d+)?)?\s*')
+                if not any(re.fullmatch(p,line,re.I) for p in patterns):
+                    raise ValueError('Malformed Hurricane price line; explicit correction required')
+        heading=re.search(r'GOLD\s+(BUY|SELL)\s+SETUP',raw,re.I)
+        zone=re.search(r'Gold\s+(Buy|Sell)\s+Zone',raw,re.I)
+        if zone and heading.group(1).upper()!=zone.group(1).upper():
+            raise ValueError('Hurricane heading and zone direction disagree')
+        targets=re.findall(r'^\s*TP\s*(\d+)\s*:',raw,re.I|re.M)
+        if targets and targets!=[str(i) for i in range(1,len(targets)+1)]:
+            raise ValueError('Duplicate, missing or reordered TP labels require explicit correction')
+        if len(re.findall(r'^\s*SL\b',raw,re.I|re.M))>1 or len(re.findall(r'^\s*Gold\s+(Buy|Sell)\s+Zone',raw,re.I|re.M))>1:
+            raise ValueError('Multiple entry or stop instructions require explicit correction')
+    return parse_signal({
+        'id': message.id,
+        'date': message.date.isoformat() if message.date else None,
+        'edited': message.edit_date.isoformat() if message.edit_date else None,
+        'reply_to_message_id': getattr(message, 'reply_to_msg_id', None),
+        'text': message.raw_text or '',
+    }, topic_name)
+
+def validate(signal: dict, max_stop_distance=25.0):
+    """Return (hard errors, soft warnings). Cannot override hard errors with approval."""
+    hard, soft = [], []
+    if not signal:
+        return ['Message is not a recognised signal'], []
+    lo, hi = signal['entry_zone_low'], signal['entry_zone_high']
+    side, sl, tps = signal['direction'], signal['stop_loss'], signal['take_profits']
+    prices=[lo,hi]+([sl] if sl is not None else [])+list(tps)
+    if any(not math.isfinite(x) for x in prices):
+        return ['Nonfinite signal price'], []
+    if side not in ('BUY','SELL'):
+        return ['Unknown direction'], []
+    if lo > hi:
+        hard.append('Entry zone low exceeds high')
+    if lo <= 0 or hi <= 0:
+        hard.append('Nonpositive entry prices')
+    if sl is None:
+        hard.append('Stop loss missing')
+    elif side == 'BUY' and sl >= lo:
+        hard.append('BUY stop must be below BOTH entry-zone prices')
+    elif side == 'SELL' and sl <= hi:
+        hard.append('SELL stop must be above BOTH entry-zone prices')
+    if sl is not None and max(abs(hi-sl), abs(lo-sl)) > max_stop_distance:
+        hard.append('Stop loss farther than configured maximum')
+    if not tps:
+        hard.append('No numeric take-profit price')
+    else:
+        if side == 'BUY':
+            if tps[0] <= hi:
+                hard.append('TP1 not above entire BUY entry zone')
+            if any(a >= b for a,b in zip(tps,tps[1:])):
+                hard.append('BUY TPs must strictly increase')
+        else:
+            if tps[0] >= lo:
+                hard.append('TP1 not below entire SELL entry zone')
+            if any(a <= b for a,b in zip(tps,tps[1:])):
+                hard.append('SELL TPs must strictly decrease')
+        if len(tps) > 2:
+            gaps = [abs(b-a) for a,b in zip(tps,tps[1:])]
+            if min(gaps) > 0 and max(gaps) > 5*min(gaps):
+                soft.append('Unusually large jump in TP ladder')
+        # The actual RR uses live entry and is checked again at execution.
+        if any(abs(x-(hi if side == 'BUY' else lo)) > 60 for x in tps):
+            soft.append('A target is unusually far from the entry')
+    return hard, soft

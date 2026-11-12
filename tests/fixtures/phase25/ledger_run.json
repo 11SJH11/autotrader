@@ -1,0 +1,33 @@
+{
+  "run_id": 214,
+  "strategy_key": "gold_ifvg_v2_fvg_ratio_020",
+  "strategy_source_hash": "6a4460e572af5034cf0fdfaf8b7005f2c91be10f9a6b3ab4877e422e7c537f91",
+  "config": {
+    "start_date": "2026-03-01",
+    "end_date": "2026-10-17",
+    "primary_timeframe": "1m",
+    "session": "auto",
+    "strategy_params": {
+      "direction": "both"
+    },
+    "sizing_mode": "risk_pct",
+    "risk_value": 1.0,
+    "commission_per_order": 0.0,
+    "slippage_bps": 0.0,
+    "spread_bps": 0.0,
+    "max_leverage": 20.0,
+    "max_open_positions": 5,
+    "same_bar_policy": "stop_first",
+    "trading_weekdays": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "allow_overnight": true,
+    "force_close_time": null,
+    "market_data_fingerprint": "674a295aa21e4d460d66edf0e2bcb310f854c2d1a2bd085616d3347c54aa4d43"
+  },
+  "trade_count": 64
+}

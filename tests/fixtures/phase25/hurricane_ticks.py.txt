@@ -1,0 +1,177 @@
+class TimestampError(RuntimeError):
+    pass
+
+class UTCClock:
+    """Independent HTTPS clocks: >=2 reachable, all usable clocks must agree.
+
+    Date has one-second resolution. RTT, cache age, redirects, source agreement
+    and the local wall clock are checked; no rejected HTTP response supplies UTC.
+    """
+    SOURCES = ('https://www.google.com/generate_204',
+               'https://www.cloudflare.com/cdn-cgi/trace',
+               'https://www.microsoft.com/', 'https://www.apple.com/')
+    TIMEOUT = 2
+
+    def __init__(self):
+        self.anchor = None
+        self.audit = {'state': 'UNVALIDATED', 'sources': []}
+
+    @classmethod
+    def _fetch(cls, url):
+        import secrets
+        from urllib.parse import urlsplit
+        from urllib.error import HTTPError
+        start = time.monotonic()
+        result = {'url': url}
+        try:
+            req = urllib.request.Request(url + '?utc_probe=' + secrets.token_hex(12),
+                headers={'Cache-Control': 'no-cache, no-store', 'Pragma': 'no-cache',
+                         'User-Agent': 'MT5-UTC-Health/1.0'})
+            with urllib.request.urlopen(req, timeout=cls.TIMEOUT) as response:
+                result['http_status'] = response.status
+                result['final_url'] = response.geturl()
+                if urlsplit(response.geturl()).hostname != urlsplit(url).hostname:
+                    raise ValueError('cross-host redirect: independence unverified')
+                if not 200 <= response.status < 300:
+                    raise ValueError('non-success response')
+                age = float(response.headers.get('Age', '0'))
+                if not math.isfinite(age) or age != 0:
+                    raise ValueError('cached or invalid Age')
+                parsed = parsedate_to_datetime(response.headers['Date'])
+                if parsed.tzinfo is None:
+                    raise ValueError('UTC Date lacks timezone')
+                date = parsed.timestamp()
+                if not math.isfinite(date):
+                    raise ValueError('invalid UTC Date')
+            end = time.monotonic()
+            if not 0 <= end-start <= cls.TIMEOUT:
+                raise ValueError('UTC RTT exceeded')
+            result.update(state='USABLE', rtt_seconds=end-start,
+                          monotonic=end, utc=date+(end-start)/2+.5)
+        except Exception as exc:
+            result.update(state='UNAVAILABLE', error=type(exc).__name__+': '+str(exc))
+            if isinstance(exc, HTTPError):
+                result.update(http_status=exc.code, response_headers={
+                    k: exc.headers.get(k) for k in
+                    ('Server', 'Via', 'X-Mitmproxy-Blocked-Reason', 'CF-Ray')
+                    if exc.headers.get(k)})
+                exc.close()
+        return result
+
+    def now(self):
+        from concurrent.futures import ThreadPoolExecutor
+        mono = time.monotonic()
+        if self.anchor is None or not 0 <= mono-self.anchor[0] < 60:
+            self.anchor = None
+            # Concurrent requests prevent one denied/unreachable source hiding others.
+            with ThreadPoolExecutor(max_workers=len(self.SOURCES)) as pool:
+                observations = list(pool.map(self._fetch, self.SOURCES))
+            mono = time.monotonic()
+            self.audit = {'state': 'REJECTED', 'sources': observations}
+            values = [r['utc']+mono-r['monotonic'] for r in observations
+                      if r['state']=='USABLE']
+            if len(values) < 2:
+                raise TimestampError('UTC_REFERENCE_UNAVAILABLE: '+json.dumps(self.audit))
+            spread = max(values)-min(values)
+            self.audit['source_spread_seconds'] = spread
+            if spread > 2:
+                raise TimestampError('UTC_SOURCES_DISAGREE: '+json.dumps(self.audit))
+            self.anchor = (mono, sum(values)/len(values))
+        utc = self.anchor[1] + mono-self.anchor[0]
+        delta = time.time()-utc
+        self.audit.update(local_clock_delta_seconds=delta,
+                          reference_age_seconds=mono-self.anchor[0])
+        if not math.isfinite(delta) or abs(delta) > 2:
+            self.anchor = None
+            self.audit['state'] = 'LOCAL_CLOCK_UNSOUND'
+            raise TimestampError('LOCAL_CLOCK_UNSOUND: '+json.dumps(self.audit))
+        self.audit['state'] = 'VALIDATED'
+        return utc
+
+class TickEstimator:
+    # Explicit permitted conventions, not a presumed seasonal schedule.
+    ALLOWED = (7200, 10800)
+    MAX_AGE = 15
+    FUTURE = 3
+    PERIOD = 60
+    MIN_SAMPLES = 6
+    MIN_OBSERVATION_SECONDS = 2
+
+    def __init__(self, configured=0, clock=None, monotonic=time.monotonic):
+        self.configured = configured
+        self.clock = clock or UTCClock()
+        self.monotonic = monotonic
+        self.reset()
+
+    def reset(self):
+        self.offset = None
+        self.samples = []
+        self.validated_at = None
+        self.last_raw = None
+        self.audit = {'state': 'UNVALIDATED', 'configured_offset_seconds': self.configured,
+                      'observed_offset_seconds': None}
+
+    def observe(self, tick):
+        try:
+            self.audit.update(raw_time=getattr(tick, 'time', None),
+                              raw_time_msc=getattr(tick, 'time_msc', None))
+            try:
+                utc = self.clock.now()
+            finally:
+                self.audit['utc_reference'] = getattr(self.clock, 'audit', {})
+            mono = self.monotonic()
+            raw = float(tick.time_msc)/1000 if getattr(tick, 'time_msc', 0) else float(tick.time)
+            if not math.isfinite(raw) or raw <= 0:
+                raise TimestampError('INVALID_TICK_TIMESTAMP')
+            self.audit.update(raw_time=getattr(tick, 'time', None),
+                              raw_time_msc=getattr(tick, 'time_msc', None), utc=utc,
+                              measured_offset_seconds=raw-utc)
+            candidate = min(self.ALLOWED, key=lambda x: abs(raw-utc-x))
+            age = utc-(raw-candidate)
+            if not -self.FUTURE <= age <= self.MAX_AGE:
+                raise TimestampError(f'MT5 quote stale/future or unsupported offset: age={age:.3f}s')
+            if self.validated_at is not None and mono-self.validated_at >= self.PERIOD:
+                self.offset = None
+                self.samples = []
+                # Same convention: periodic expiry must not hide regressions.
+                self.validated_at = None
+            if self.offset is not None and candidate != self.offset:
+                self.offset = None
+                self.samples = []
+                self.last_raw = None
+                self.validated_at = None
+            if self.last_raw is not None and raw < self.last_raw:
+                raise TimestampError('TICK_TIMESTAMP_REGRESSED')
+            if self.offset is None:
+                # raw - UTC is offset minus quote age, not an offset estimate
+                # independent of latency. Tick catch-up may legitimately advance
+                # much faster than our sampler; every tick already passed the
+                # unchanged freshness/future bounds above.
+                if self.samples and candidate != self.samples[0][3]:
+                    raise TimestampError('OFFSET_CONVENTION_UNSTABLE')
+                if not self.samples or raw != self.last_raw:
+                    self.samples.append((raw, mono, raw-utc, candidate))
+                self.last_raw = raw
+                # Duplicate timestamps (even with new prices) cannot add evidence
+                # or extend the observation span used to authorize an offset.
+                span = self.samples[-1][1]-self.samples[0][1]
+                self.audit.update(normalized_tick_age_seconds=age,
+                                  candidate_offset_seconds=candidate,
+                                  advancing_samples=len(self.samples),
+                                  observation_span_seconds=span)
+                if len(self.samples) < self.MIN_SAMPLES or span < self.MIN_OBSERVATION_SECONDS:
+                    self.audit['state'] = 'CALIBRATING'
+                    return False
+                self.offset = candidate
+                self.validated_at = mono
+            self.last_raw = raw
+            self.audit.update(state='VALIDATED', observed_offset_seconds=self.offset,
+                              normalized_tick_age_seconds=utc-(raw-self.offset),
+                              configured_matches_observed=self.configured == self.offset,
+                              advancing_samples=len(self.samples))
+            return True
+        except Exception:
+            evidence = dict(self.audit)
+            self.reset()
+            self.audit.update(evidence, state='REJECTED', observed_offset_seconds=None)
+            raise

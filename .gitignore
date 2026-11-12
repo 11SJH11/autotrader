@@ -24,3 +24,5 @@ docs/local_inventory.txt
 
 .pytest-tmp/
 *.owner
+.phase3/
+.phase28/

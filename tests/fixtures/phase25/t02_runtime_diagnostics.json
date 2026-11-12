@@ -1,0 +1,107 @@
+{
+  "events": [
+    {
+      "kind": "data_gap_skip",
+      "at": "2026-10-26T22:01:01.313833+00:00",
+      "from_bar": "2026-10-26T20:59:00+00:00",
+      "to_bar": "2026-10-26T22:00:00+00:00",
+      "session_blocked": null
+    },
+    {
+      "kind": "first_ifvg",
+      "at": "2026-10-27T00:15:02.401005+00:00",
+      "session": "2026-10-26",
+      "confirmed_at": "2026-10-27T00:15:00+00:00",
+      "direction": "long",
+      "accepted": true,
+      "reason": "accepted"
+    },
+    {
+      "kind": "entry_aborted_fail_closed",
+      "at": "2026-10-27T00:15:02.403005+00:00",
+      "normalized_error": "Minimum authorized/broker lot exceeds risk budget: SKIP"
+    },
+    {
+      "kind": "data_gap_skip",
+      "at": "2026-11-06T00:08:22.949594+00:00",
+      "from_bar": "2026-10-27T17:51:00+00:00",
+      "to_bar": "2026-11-05T21:06:00+00:00",
+      "session_blocked": null
+    },
+    {
+      "kind": "stale_completed_candle_skip",
+      "at": "2026-11-06T00:08:22.961594+00:00",
+      "delay_seconds": 10882.961594
+    },
+    {
+      "kind": "data_gap_skip",
+      "at": "2026-11-06T00:08:28.013764+00:00",
+      "from_bar": "2026-11-05T21:06:00+00:00",
+      "to_bar": "2026-11-06T00:07:00+00:00",
+      "session_blocked": null
+    },
+    {
+      "kind": "stale_completed_candle_skip",
+      "at": "2026-11-06T00:08:28.034765+00:00",
+      "delay_seconds": 28.034765
+    },
+    {
+      "kind": "data_gap_skip",
+      "at": "2026-11-06T00:38:06.237758+00:00",
+      "from_bar": "2026-10-27T17:51:00+00:00",
+      "to_bar": "2026-11-06T00:37:00+00:00",
+      "session_blocked": null
+    },
+    {
+      "kind": "stale_completed_candle_skip",
+      "at": "2026-11-08T23:00:05.279720+00:00",
+      "delay_seconds": 176405.27972
+    },
+    {
+      "kind": "data_gap_skip",
+      "at": "2026-11-08T23:01:01.241645+00:00",
+      "from_bar": "2026-11-06T21:59:00+00:00",
+      "to_bar": "2026-11-08T23:00:00+00:00",
+      "session_blocked": null
+    },
+    {
+      "kind": "stale_completed_candle_skip",
+      "at": "2026-11-09T03:31:23.140015+00:00",
+      "delay_seconds": 23.140015
+    },
+    {
+      "kind": "data_gap_skip",
+      "at": "2026-11-09T23:01:01.460703+00:00",
+      "from_bar": "2026-11-09T21:59:00+00:00",
+      "to_bar": "2026-11-09T23:00:00+00:00",
+      "session_blocked": null
+    },
+    {
+      "kind": "stale_completed_candle_skip",
+      "at": "2026-11-09T23:41:17.877529+00:00",
+      "delay_seconds": 17.877529
+    },
+    {
+      "kind": "first_ifvg",
+      "at": "2026-11-10T02:00:03.576719+00:00",
+      "session": "2026-11-09",
+      "confirmed_at": "2026-11-10T02:00:00+00:00",
+      "direction": "short",
+      "accepted": true,
+      "reason": "accepted"
+    },
+    {
+      "kind": "strategy_rejected",
+      "at": "2026-11-10T02:00:03.588719+00:00",
+      "session": "2026-11-09",
+      "reason": "long_only"
+    }
+  ],
+  "cycle_error_categories": {
+    "disconnected": 1,
+    "UTC_REFERENCE_UNAVAILABLE": 1,
+    "TICK_CALIBRATION_TIMEOUT": 11,
+    "stale/future": 35694,
+    "other_unclassified": 133
+  }
+}

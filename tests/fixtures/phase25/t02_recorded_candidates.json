@@ -1,0 +1,43 @@
+[
+  {
+    "session": "2026-10-26",
+    "direction": "long",
+    "confirmed_at": "2026-10-27T00:15:00+00:00",
+    "source_fvg_at": "2026-10-27T00:00:00+00:00",
+    "fvg_lower": 4009.99,
+    "fvg_upper": 4011.12,
+    "stop": 4004.08,
+    "signal_close": 4016.74,
+    "fvg_stop_ratio": 0.08925750394945672,
+    "accepted": true,
+    "reason": "accepted"
+  },
+  {
+    "event": "strategy_evaluated",
+    "execution_gate": "session_blocked",
+    "accepted": false,
+    "confirmed_at": "2026-11-09T04:30:00+00:00",
+    "direction": "long",
+    "fvg_lower": 4122.01,
+    "fvg_stop_ratio": 0.21538461538460194,
+    "fvg_upper": 4124.25,
+    "reason": "fvg_ratio_or_stop_rejected",
+    "session": "2026-11-08",
+    "signal_close": 4124.75,
+    "source_fvg_at": "2026-11-09T03:15:00+00:00",
+    "stop": 4114.35
+  },
+  {
+    "session": "2026-11-09",
+    "direction": "short",
+    "confirmed_at": "2026-11-10T02:00:00+00:00",
+    "source_fvg_at": "2026-11-10T01:30:00+00:00",
+    "fvg_lower": 4128.5,
+    "fvg_upper": 4128.57,
+    "stop": 4141.46,
+    "signal_close": 4127.58,
+    "fvg_stop_ratio": 0.005043227665685044,
+    "accepted": true,
+    "reason": "accepted"
+  }
+]

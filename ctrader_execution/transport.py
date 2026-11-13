@@ -134,25 +134,7 @@ class TradeClient(Reader):
     @serial_io
     def snapshot(self,since_ms):
         self._check_authority()
-        for _ in range(3):
-            revision=self._event_revision
-            before=self._read('reconcile')
-            end=int(self.wall()*1000)
-            if not 0<=since_ms<=end or end-since_ms>7*86400000:raise SafetyError('BOUNDED_HISTORY_WINDOW_REQUIRED')
-            orders=self._history('orders',since_ms,end);deals=self._history('deals',since_ms,end)
-            after=self._read('reconcile')
-            if before!=after or revision!=self._event_revision:continue
-            pending=rows(after,'order');positions=rows(after,'position')
-            self._validate_book(pending,positions)
-            by_id={integer(o.get('orderId'),1):o for o in orders}
-            for order in pending:
-                oid=integer(order.get('orderId'),1)
-                # Pending reconcile can be a fresher projection than history.
-                if oid in by_id and any(by_id[oid].get(k)!=order.get(k) for k in ('clientOrderId','orderType')):raise SafetyError('ORDER_HISTORY_CONFLICT')
-                by_id[oid]=order
-            return {'ctidTraderAccountId':self.config.demo_account_id,'orders':list(by_id.values()),
-                'positions':positions,'deals':deals,'history_complete':True,'at':self.wall()}
-        raise SafetyError('SNAPSHOT_CHANGED_RETRY')
+        return read_book(self,since_ms)
 
     @serial_io
     def mutate(self,frame,journal,*,controls_check):
@@ -241,10 +223,13 @@ class TradeClient(Reader):
                         code=body.get('errorCode')
                         if code not in REJECT_CODES:raise SafetyError('UNKNOWN_BROKER_REJECTION')
                         journal.outcome(cid,'REJECTED',code);return {'rejected':True,'code':code}
-                    if execution not in {2106:{2,3,11},2108:{5},2109:{4},2110:{4},2111:{3,11}}[kind]:raise SafetyError('UNKNOWN_EXECUTION_TYPE')
+                    if execution not in {2106:{2,3,11},2108:{5},2109:{4},2110:{4},2111:{2,3,11}}[kind]:raise SafetyError('UNKNOWN_EXECUTION_TYPE')
                     if kind==2106 and body.get('order',{}).get('clientOrderId')!=cid:raise SafetyError('ORDER_IDENTITY_MISMATCH')
                     if kind in (2108,2109) and integer(body.get('order',{}).get('orderId'),1)!=p['orderId']:raise SafetyError('ACTION_TARGET_MISMATCH')
-                    if kind in (2110,2111) and integer(body.get('position',{}).get('positionId'),1)!=p['positionId']:raise SafetyError('ACTION_TARGET_MISMATCH')
+                    if kind in (2110,2111):
+                        targets={integer(x['positionId'],1) for name in ('order','position','deal') if isinstance((x:=body.get(name)),dict) and 'positionId' in x}
+                        if targets!={p['positionId']}:raise SafetyError('ACTION_TARGET_MISMATCH')
+                    journal.acknowledge(cid,kind,body)
                     journal.outcome(cid,'ACCEPTED','CORRELATED_EXECUTION_EVENT');return {'rejected':False}
                 # Async events cannot be guessed into request acknowledgements.
                 if reply_kind in (2126,2132,2131,51,2123,2141,2120):
@@ -300,11 +285,84 @@ class TradeClient(Reader):
         return self.mutate(frame(claim['id'],kind,payload),journal,controls_check=controls_check)
 
 
+
+def read_book(reader,since_ms):
+    """Strict read-side snapshots shared by view-only audit and execution."""
+    for _ in range(3):
+        revision=reader._event_revision
+        before=reader._read('reconcile')
+        end=int(reader.wall()*1000)
+        if not 0<=since_ms<=end or end-since_ms>7*86400000:raise SafetyError('BOUNDED_HISTORY_WINDOW_REQUIRED')
+        orders=reader._history('orders',since_ms,end);deals=reader._history('deals',since_ms,end)
+        after=reader._read('reconcile')
+        if before!=after or revision!=reader._event_revision:continue
+        pending=rows(after,'order');positions=rows(after,'position')
+        reader._validate_book(pending,positions)
+        by_id={integer(o.get('orderId'),1):o for o in orders}
+        for order in pending:
+            oid=integer(order.get('orderId'),1)
+            # Pending reconcile can be a fresher projection than history.
+            if oid in by_id and any(by_id[oid].get(k)!=order.get(k) for k in ('clientOrderId','orderType')):raise SafetyError('ORDER_HISTORY_CONFLICT')
+            by_id[oid]=order
+        return {'ctidTraderAccountId':reader.config.demo_account_id,'orders':list(by_id.values()),
+            'positions':positions,'deals':deals,'history_complete':True,'at':reader.wall()}
+    raise SafetyError('SNAPSHOT_CHANGED_RETRY')
+
+
+def entry_order(book,cid):
+    """clientOrderId can also be inherited by native protection/closing orders.
+
+    Exclude documented child/closing roles, not an arbitrary duplicate entry.
+    Linking and conservation are validated separately by owned_state.
+    """
+    closing_ids={integer(d['orderId'],1) for d in book['deals'] if 'closePositionDetail' in d}
+    orders=[];linked=[]
+    for order in book['orders']:
+        if order.get('clientOrderId')!=cid:continue
+        kind=integer(order.get('orderType'),1);oid=integer(order.get('orderId'),1)
+        if kind not in (1,2,4):raise SafetyError('UNSUPPORTED_LINKED_ORDER_TYPE')
+        if 'closingOrder' in order and type(order['closingOrder']) is not bool:raise SafetyError('INVALID_LINKED_ORDER_ROLE')
+        if kind==4 or order.get('closingOrder') is True or oid in closing_ids:linked.append(order)
+        elif kind in (1,2):orders.append(order)
+        else:raise SafetyError('UNSUPPORTED_LINKED_ORDER_TYPE')
+    if len(orders)>1:raise SafetyError('AMBIGUOUS_CLIENT_ORDER_ID')
+    if linked and not orders:raise SafetyError('ENTRY_ORDER_EVIDENCE_MISSING')
+    return (orders[0] if orders else None),linked
+
+
+def observed_exposure(book,cid,*,symbol_id,side,raw_volume):
+    """Positive position evidence survives incomplete history, for alerts only.
+
+    Never authorizes management or claims balanced/closed state. Unknown ownership
+    still reports account-wide exposure requiring the operator's attention.
+    """
+    result={'account_open_positions':len(book.get('positions',[])),
+        'account_pending_orders':None,
+        'ownership_identified':False,'owned_open_positions':None,'full_reconciliation_required':True}
+    try:
+        result['account_pending_orders']=sum(integer(o.get('orderStatus'),1)==1 for o in book.get('orders',[]))
+        order,_=entry_order(book,cid)
+        if order is None:return result
+        td=order['tradeData']
+        if integer(td['symbolId'],1)!=symbol_id or integer(td['tradeSide'],1)!=side or integer(td['volume'],1)!=raw_volume:return result
+        pids=set()
+        if order.get('positionId') is not None:pids.add(integer(order['positionId'],1))
+        for d in book['deals']:
+            if integer(d['orderId'],1)==integer(order['orderId'],1) and 'closePositionDetail' not in d and integer(d['filledVolume'])>0:
+                pids.add(integer(d['positionId'],1))
+        if len(pids)!=1:return result
+        positions=[p for p in book['positions'] if integer(p['positionId'],1) in pids]
+        if any(integer(p['tradeData']['symbolId'],1)!=symbol_id or integer(p['tradeData']['tradeSide'],1)!=side for p in positions):return result
+        result.update(ownership_identified=True,owned_open_positions=len(positions),
+            owned_open_raw_volume=sum(integer(p['tradeData']['volume'],1) for p in positions),
+            native_sl_tp_present=all('stopLoss' in p and 'takeProfit' in p for p in positions) if positions else None)
+    except (SafetyError,KeyError,TypeError,ValueError):pass
+    return result
+
+
 def owned_state(book,cid):
     if book.get('history_complete') is not True:raise SafetyError('HISTORY_INCOMPLETE')
-    orders=[o for o in book['orders'] if o.get('clientOrderId')==cid]
-    if len(orders)>1:raise SafetyError('AMBIGUOUS_CLIENT_ORDER_ID')
-    order=orders[0] if orders else None
+    order,linked=entry_order(book,cid)
     seen=set()
     for deal in book['deals']:
         did=integer(deal.get('dealId'),1)
@@ -330,6 +388,12 @@ def owned_state(book,cid):
     if order:
         td=order['tradeData'];symbol=integer(td['symbolId'],1);side=integer(td['tradeSide'],1)
         if side not in (1,2):raise SafetyError('OWNED_ENTRY_IDENTITY_MISMATCH')
+        for child in linked:
+            ct=child['tradeData']
+            if (integer(child.get('positionId'),1) not in pids or integer(ct['symbolId'],1)!=symbol
+                or integer(ct['tradeSide'],1)!=3-side or integer(ct['volume'],1)>integer(td['volume'],1)):
+                raise SafetyError('INVALID_LINKED_PROTECTION_ORDER')
+            if not current and integer(child.get('orderStatus'),1)==1:raise SafetyError('PROTECTION_ORDER_REMAINS_AFTER_CLOSE')
         for deal in opening+closing:
             expected=side if deal in opening else 3-side
             if integer(deal.get('symbolId'),1)!=symbol or integer(deal.get('tradeSide'),1)!=expected:raise SafetyError('DEAL_IDENTITY_MISMATCH')
@@ -344,7 +408,7 @@ def audit_projection(book):
     def td(value):return {k:value[k] for k in ('symbolId','volume','tradeSide','openTimestamp') if k in value}
     output={k:book[k] for k in ('ctidTraderAccountId','history_complete','at')}
     fields={
-        'orders':('orderId','clientOrderId','orderType','orderStatus','positionId','executedVolume','limitPrice','stopLoss','takeProfit','relativeStopLoss','relativeTakeProfit'),
+        'orders':('orderId','clientOrderId','orderType','orderStatus','positionId','closingOrder','executedVolume','limitPrice','stopLoss','takeProfit','relativeStopLoss','relativeTakeProfit'),
         'positions':('positionId','positionStatus','price','stopLoss','takeProfit','usedMargin','moneyDigits'),
         'deals':('dealId','orderId','positionId','symbolId','volume','filledVolume','executionPrice','tradeSide','dealStatus','executionTimestamp','commission','moneyDigits')}
     for key,allowed in fields.items():

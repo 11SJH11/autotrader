@@ -1,0 +1,131 @@
+{
+  "checked_at_utc": "2026-11-12T21:34:04.428915+00:00",
+  "read_only": true,
+  "execution_enabled": false,
+  "approval_created": false,
+  "baseline_confirmation_exists": true,
+  "baseline_confirmation_valid": true,
+  "confirmed_actual_matches_intended_10000": true,
+  "controls": {
+    "entry_suspended": true,
+    "strategies": [
+      {
+        "strategy": "hurricane_observation",
+        "state": "STOPPED"
+      },
+      {
+        "strategy": "t02_reference",
+        "state": "STOPPED"
+      },
+      {
+        "strategy": "t02_long_only",
+        "state": "STOPPED"
+      }
+    ]
+  },
+  "journal_exists": false,
+  "order_approval_exists": false,
+  "identity": {
+    "environment": "DEMO",
+    "view_authorized": true,
+    "pinned_account_id_matches": true,
+    "broker_name": "pepperstoneuk",
+    "currency": "USD",
+    "account_mode": "HEDGED",
+    "broker_name_matches_configuration": true
+  },
+  "baseline_current_matches_intended_10000": true,
+  "current_matches_confirmed_balance": true,
+  "reconciliation": {
+    "pending_count": 0,
+    "position_count": 0,
+    "history_complete": true,
+    "snapshot_fresh": true
+  },
+  "specification": {
+    "minVolume": 100,
+    "maxVolume": 500000,
+    "stepVolume": 100,
+    "lotSize": 10000,
+    "digits": 2,
+    "pipPosition": 1,
+    "slDistance": 0,
+    "tpDistance": 0,
+    "distanceSetIn": 1,
+    "tradingMode": 0,
+    "commissionType": 2,
+    "preciseTradingCommissionRate": 350000000,
+    "preciseMinCommission": 0
+  },
+  "specs_match_phase3_evidence": true,
+  "volume_lots": {
+    "minimum": "0.01",
+    "maximum": "50",
+    "step": "0.01",
+    "units_per_lot": "100"
+  },
+  "standard_stop_account": true,
+  "guaranteed_stops": false,
+  "account_leverage_in_cents": 3000,
+  "account_leverage": "30",
+  "instrument_leverage_tiers_raw": [
+    {
+      "volume": 100000000,
+      "leverage": 2000
+    }
+  ],
+  "quote": {
+    "bid": "3873.57",
+    "ask": "3873.74",
+    "timestamp_utc": "2026-11-12T21:34:06.678000+00:00",
+    "server_age_seconds": 0.5440142154693604
+  },
+  "spread_price_distance": "0.17",
+  "spread_within_050": true,
+  "hypothetical_margin_usd": {
+    "buy": "193.69",
+    "sell": "193.68",
+    "both_positive_and_within_250": true,
+    "funds_cover_margin_plus_5_risk": true
+  },
+  "implied_effective_leverage": {
+    "buy": "19.99969022665083380659817234",
+    "sell": "19.99984510532837670384138786"
+  },
+  "notional_usd": {
+    "buy": "3873.74",
+    "sell": "3873.57"
+  },
+  "comparison_only_margin_at_ui_30": {
+    "buy": "129.1246666666666666666666667",
+    "sell": "129.119"
+  },
+  "owner_ui_evidence": {
+    "gold_displayed_leverage": "1:30",
+    "oz_per_lot": 100,
+    "min_lots": "0.01",
+    "max_lots": "50",
+    "api_step_lots": "0.01",
+    "commission_label_usd_per_lot": "3.50",
+    "minimum_sl_tp_pips": "0.0"
+  },
+  "proposal_conditional_on_ui_confirmation": {
+    "lots": "0.01",
+    "raw_volume": 100,
+    "side": "BUY",
+    "type": "MARKET",
+    "stop_distance": "2",
+    "target_distance": "4",
+    "risk_cap": "5",
+    "margin_cap": "250",
+    "commission_per_lot_per_side_usd": "3.5",
+    "nominal_roundtrip_001lot_usd": "0.070",
+    "rounded_roundtrip_fee_plus_buffer_usd": "0.58",
+    "planned_risk_including_slippage_and_fee_buffer_usd": "2.83",
+    "relativeStopLoss": 200000,
+    "relativeTakeProfit": 400000,
+    "approval": false
+  },
+  "health": "HEALTHY",
+  "completed": true
+}

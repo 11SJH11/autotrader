@@ -1,0 +1,90 @@
+{
+  "checked_at_utc": "2026-11-12T23:39:55.140107+00:00",
+  "read_only": true,
+  "journal": {
+    "entry_claims": 1,
+    "entry_state": "ACCEPTED",
+    "send_consumed": true,
+    "mutation_count": 1
+  },
+  "pinned_demo_view_identity_verified": true,
+  "selected_private_evidence_saved": true,
+  "preserved_first_snapshot": {
+    "pending_order_count": 1,
+    "account_open_position_count": 1,
+    "matching_client_id_order_types": [
+      4,
+      1
+    ],
+    "closing_order_flags_present": [
+      false,
+      false
+    ],
+    "owned_open_position_count": 1,
+    "opened_raw": 100,
+    "closed_raw": 0,
+    "opening_prices": [
+      3876.83
+    ],
+    "commissions": [
+      {
+        "side": "OPEN",
+        "commission_present": true,
+        "money_digits_present": true,
+        "commission_usd": "-0.04"
+      }
+    ],
+    "positions": [
+      {
+        "price": 3876.83,
+        "stop": 3874.83,
+        "target": 3880.83,
+        "raw_volume": 100
+      }
+    ],
+    "strict_reconciliation": {
+      "passed": false,
+      "code": "AMBIGUOUS_CLIENT_ORDER_ID"
+    }
+  },
+  "current_broker": {
+    "pending_order_count": 0,
+    "account_open_position_count": 0,
+    "matching_client_id_order_types": [
+      4,
+      1
+    ],
+    "closing_order_flags_present": [
+      true,
+      true
+    ],
+    "owned_open_position_count": 0,
+    "opened_raw": 100,
+    "closed_raw": 100,
+    "opening_prices": [
+      3876.83
+    ],
+    "commissions": [
+      {
+        "side": "OPEN",
+        "commission_present": true,
+        "money_digits_present": true,
+        "commission_usd": "-0.04"
+      },
+      {
+        "side": "CLOSE",
+        "commission_present": true,
+        "money_digits_present": true,
+        "commission_usd": "-0.04"
+      }
+    ],
+    "positions": [],
+    "strict_reconciliation": {
+      "passed": false,
+      "code": "AMBIGUOUS_CLIENT_ORDER_ID"
+    }
+  },
+  "history_complete": true,
+  "completed": true,
+  "original_private_files_unchanged": true
+}

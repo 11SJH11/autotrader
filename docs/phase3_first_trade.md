@@ -153,3 +153,9 @@ native protection, known fees/fill/margin, no residual orders/positions, complet
 positive history and a preserved audit. A passed mock suite, accepted request or
 an empty snapshot alone does not establish these facts. Further capability tests,
 strategy execution and unattended operation require separate review/approval.
+
+An expired permit after a proven zero-claim pre-dispatch failure can now be
+renewed only with `renew-test`; see [safe renewal](razor_test_renewal.md). It keeps
+the original binding, policy and one-entry lifetime restriction and requires
+fresh checks plus new local consent. Do not replace the approval with
+`approve-test` when that original journal already exists.

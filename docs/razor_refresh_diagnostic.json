@@ -1,0 +1,43 @@
+{
+  "checked_at_utc": "2026-11-12T21:58:10.535919+00:00",
+  "read_only": true,
+  "no_order_attempted": true,
+  "initial": {
+    "quote_age_seconds": 0.05165433883666992,
+    "spread": "0.17",
+    "within_spread_limit": true,
+    "expected_buy_margin": "193.9",
+    "expected_sell_margin": "193.89",
+    "within_margin_limit": true,
+    "empty_book": true,
+    "trading_mode": 0,
+    "health": "HEALTHY"
+  },
+  "weekly_schedule": {
+    "timezone_present": true,
+    "timezone": "America/New_York",
+    "interval_count": 5,
+    "within_published_weekly_interval": true,
+    "holiday_override_checked": false
+  },
+  "commission": {
+    "commissionType": 2,
+    "preciseTradingCommissionRate": 350000000,
+    "preciseMinCommission": 0,
+    "minCommissionType": 1
+  },
+  "idle_seconds": 12,
+  "same_session_error": "STALE_QUOTE",
+  "fresh_session_after_idle": {
+    "quote_age_seconds": 0.550072193145752,
+    "spread": "0.17",
+    "within_spread_limit": true,
+    "expected_buy_margin": "193.87",
+    "expected_sell_margin": "193.86",
+    "within_margin_limit": true,
+    "empty_book": true,
+    "trading_mode": 0,
+    "health": "HEALTHY"
+  },
+  "completed": true
+}

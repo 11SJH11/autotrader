@@ -1,0 +1,158 @@
+{
+  "provenance": "Sanitized shape/role relationships from preserved first-fill and view-only post-manual-close snapshots. All IDs/times/client labels replaced; closing price synthetic; P&L, balances and private account data omitted. Entry/protection prices and deal commission retained as authorized evidence.",
+  "client_order_id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "open": {
+    "ctidTraderAccountId": 900001,
+    "history_complete": true,
+    "at": 1700000000,
+    "orders": [
+      {
+        "orderId": 71001,
+        "clientOrderId": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "orderType": 4,
+        "orderStatus": 1,
+        "positionId": 81001,
+        "executedVolume": 0,
+        "limitPrice": 3880.83,
+        "tradeData": {
+          "symbolId": 10001,
+          "tradeSide": 2,
+          "volume": 100
+        },
+        "utcLastUpdateTimestamp": 1700000000000
+      },
+      {
+        "orderId": 71002,
+        "clientOrderId": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "orderType": 1,
+        "orderStatus": 2,
+        "positionId": 81001,
+        "executedVolume": 100,
+        "relativeStopLoss": 200000,
+        "relativeTakeProfit": 400000,
+        "tradeData": {
+          "symbolId": 10001,
+          "tradeSide": 1,
+          "volume": 100
+        },
+        "utcLastUpdateTimestamp": 1700000000000
+      }
+    ],
+    "positions": [
+      {
+        "positionId": 81001,
+        "positionStatus": 1,
+        "price": 3876.83,
+        "stopLoss": 3874.83,
+        "takeProfit": 3880.83,
+        "tradeData": {
+          "symbolId": 10001,
+          "tradeSide": 1,
+          "volume": 100
+        }
+      }
+    ],
+    "deals": [
+      {
+        "dealId": 61001,
+        "orderId": 71002,
+        "positionId": 81001,
+        "symbolId": 10001,
+        "filledVolume": 100,
+        "volume": 100,
+        "tradeSide": 1,
+        "dealStatus": 2,
+        "commission": -4,
+        "moneyDigits": 2,
+        "executionTimestamp": 1700000000000,
+        "executionPrice": 3876.83
+      }
+    ]
+  },
+  "closed": {
+    "ctidTraderAccountId": 900001,
+    "history_complete": true,
+    "at": 1700000000,
+    "orders": [
+      {
+        "orderId": 71003,
+        "clientOrderId": "SYNTHETIC_OTHER_CLIENT",
+        "orderType": 1,
+        "orderStatus": 2,
+        "positionId": 81001,
+        "executedVolume": 100,
+        "tradeData": {
+          "symbolId": 10001,
+          "tradeSide": 2,
+          "volume": 100
+        },
+        "utcLastUpdateTimestamp": 1700000000000
+      },
+      {
+        "orderId": 71001,
+        "clientOrderId": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "orderType": 4,
+        "orderStatus": 5,
+        "positionId": 81001,
+        "executedVolume": 0,
+        "limitPrice": 3880.83,
+        "tradeData": {
+          "symbolId": 10001,
+          "tradeSide": 2,
+          "volume": 100
+        },
+        "utcLastUpdateTimestamp": 1700000000000
+      },
+      {
+        "orderId": 71002,
+        "clientOrderId": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "orderType": 1,
+        "orderStatus": 2,
+        "positionId": 81001,
+        "executedVolume": 100,
+        "relativeStopLoss": 200000,
+        "relativeTakeProfit": 400000,
+        "tradeData": {
+          "symbolId": 10001,
+          "tradeSide": 1,
+          "volume": 100
+        },
+        "utcLastUpdateTimestamp": 1700000000000
+      }
+    ],
+    "positions": [],
+    "deals": [
+      {
+        "dealId": 61002,
+        "orderId": 71003,
+        "positionId": 81001,
+        "symbolId": 10001,
+        "filledVolume": 100,
+        "volume": 100,
+        "tradeSide": 2,
+        "dealStatus": 2,
+        "commission": -4,
+        "moneyDigits": 2,
+        "closePositionDetail": {
+          "closedVolume": 100
+        },
+        "executionTimestamp": 1700000000000,
+        "executionPrice": 3876.83
+      },
+      {
+        "dealId": 61001,
+        "orderId": 71002,
+        "positionId": 81001,
+        "symbolId": 10001,
+        "filledVolume": 100,
+        "volume": 100,
+        "tradeSide": 1,
+        "dealStatus": 2,
+        "commission": -4,
+        "moneyDigits": 2,
+        "executionTimestamp": 1700000000000,
+        "executionPrice": 3876.83
+      }
+    ]
+  }
+}

@@ -130,3 +130,22 @@ Phase 3.1 attended DEMO test boundaries:
   is an attended single-host test harness, not unattended broker reliability.
   See `phase31_handover.md` and `phase3_first_trade.md`; no trading consent was
   obtained and no mutation was performed during the Phase 3.1 assignment.
+
+First-test permit renewal is restricted to an expired, demonstrably unused bound
+journal: no mutations, entry claims, execution observations or unexplained attempt
+audits. It keeps the original ID/policy/unique entry slot and requires fresh broker
+reads, ownership exclusion and new local consent. A durable private old/new receipt
+precedes atomic permit publication; renewed files require that receipt to validate.
+No missing journal is initialized or spent/UNKNOWN entry reset by renewal. See
+`razor_test_renewal.md` for failure/crash boundaries and the owner-only procedure.
+
+Phase 3.3 capability allocations preserve every spent journal. New immutable test
+IDs/approvals/durable journals share the pinned account profile's execution fence
+and canonical private registry. One unresolved allocation blocks another; failed,
+UNKNOWN, expired or partially published tests cannot be replaced to retry an entry.
+Positive legacy manual-close evidence is recorded separately, never by resetting
+the original journal. Automatic-close success requires broker-native protection,
+full closing volume attributed to the harness's correlated close acknowledgement,
+complete deal/cost evidence and a flat whole-account snapshot. View-only resolution
+cannot promote manual closure or an UNKNOWN failure into automatic success. See
+`phase33_handover.md` for the attended approval gate and single-host limitations.

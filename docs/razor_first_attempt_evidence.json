@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-11-12T23:08:12.849454+00:00",
+  "read_only": true,
+  "mutation_requests_sent": false,
+  "journal": {
+    "journal": "PRESENT",
+    "entry_claims": 0,
+    "mutations": [],
+    "state": "NOT_STARTED",
+    "execution_enabled": false
+  },
+  "durable_evidence": {
+    "mutation_count": 0,
+    "send_consumed_count": 0,
+    "observation_count": 0,
+    "submission_claim_audit_count": 0,
+    "send_fence_audit_count": 0
+  },
+  "pinned_demo_view_identity_verified": true,
+  "broker": {
+    "pending_order_count": 0,
+    "open_position_count": 0,
+    "order_history_count": 0,
+    "deal_history_count": 0,
+    "history_complete": true,
+    "consistent_before_after_snapshot": true,
+    "window_start_utc": "2026-11-12T22:56:42.683000+00:00",
+    "window_end_utc": "2026-11-12T23:08:13.579000+00:00",
+    "open_positions_with_sl_tp": 0
+  },
+  "completed": true,
+  "private_evidence_unchanged": true
+}

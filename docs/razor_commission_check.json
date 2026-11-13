@@ -1,0 +1,67 @@
+{
+  "checked_at_utc": "2026-11-12T21:53:37.848359+00:00",
+  "read_only": true,
+  "pinned_demo_usd_verified": true,
+  "fields": {
+    "preciseTradingCommissionRate": {
+      "present": true,
+      "value": 350000000
+    },
+    "commissionType": {
+      "present": true,
+      "value": 2
+    },
+    "preciseMinCommission": {
+      "present": true,
+      "value": 0
+    },
+    "minCommissionType": {
+      "present": true,
+      "value": 1
+    },
+    "minCommissionAsset": {
+      "present": true,
+      "value": "USD"
+    },
+    "minCommission": {
+      "present": true,
+      "value": 0
+    },
+    "commission": {
+      "present": true,
+      "value": 350
+    },
+    "lotSize": {
+      "present": true,
+      "value": 10000
+    },
+    "minVolume": {
+      "present": true,
+      "value": 100
+    },
+    "maxVolume": {
+      "present": true,
+      "value": 500000
+    },
+    "stepVolume": {
+      "present": true,
+      "value": 100
+    },
+    "slDistance": {
+      "present": true,
+      "value": 0
+    },
+    "tpDistance": {
+      "present": true,
+      "value": 0
+    },
+    "distanceSetIn": {
+      "present": true,
+      "value": 1
+    }
+  },
+  "rounding_named_fields_present": [],
+  "rate_usd_per_lot_if_type_2": "3.5",
+  "minimum_amount_if_present": "0",
+  "completed": true
+}

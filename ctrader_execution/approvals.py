@@ -75,7 +75,10 @@ def validate_test(value,config,now=None,*,management=False):
     allowed=value.get('allowed_ops')
     if not isinstance(allowed,list) or any(type(k) is not int or k not in (2106,2108,2109,2110,2111) for k in allowed) or not {2106,2108,2111}<=set(allowed):raise SafetyError('EXPLICIT_OPERATION_APPROVAL_REQUIRED')
     canonical=private_path(config.token_path).parent/'first-test.sqlite'
-    if value.get('journal_path')!=str(canonical):raise SafetyError('CANONICAL_FIRST_TEST_JOURNAL_REQUIRED')
+    if 'allocation_id' in value:
+        from .allocations import validate_allocation
+        validate_allocation(config,value)
+    elif value.get('journal_path')!=str(canonical):raise SafetyError('CANONICAL_FIRST_TEST_JOURNAL_REQUIRED')
     number(value.get('confirmed_balance'),zero=True);number(value.get('intended_balance'))
     for key in RISK_KEYS:number(value.get(key),zero=key in ('slippage_buffer','fee_buffer','stop_floor'))
     ui=value.get('ui',{})
@@ -83,6 +86,9 @@ def validate_test(value,config,now=None,*,management=False):
         raise SafetyError('MATCHING_UI_SPEC_CONFIRMATION_REQUIRED')
     for key in ('minimum_lots','maximum_lots','step_lots','units_per_lot','commission_roundtrip_per_lot'):number(ui.get(key),zero=key=='commission_roundtrip_per_lot')
     if number(ui['minimum_lots'])!=D('.01') or number(ui['units_per_lot'])!=100:raise SafetyError('RAZOR_MINIMUM_CONTRACT_MISMATCH')
+    if 'renewal_receipt' in value:
+        from .renewal import require_receipt
+        require_receipt(value,config)
     return value
 
 
@@ -90,7 +96,9 @@ def local_confirmation(message,expected):
     # Explicitly a controlling terminal, never API/stdout logs or a pipeline.
     import getpass
     try:
-        with open('/dev/tty','r+') as terminal:
+        # r+ requests a seekable buffered reader/writer; terminals cannot seek.
+        # This stream only displays the prompt; getpass opens the TTY for input.
+        with open('/dev/tty','w') as terminal:
             terminal.write(message+'\n');terminal.flush()
             answer=getpass.getpass('Type the requested confirmation (input hidden): ',stream=terminal)
     except (OSError,EOFError):raise SafetyError('LOCAL_OWNER_TTY_REQUIRED') from None
